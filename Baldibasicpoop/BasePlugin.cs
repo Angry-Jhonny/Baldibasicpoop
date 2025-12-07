@@ -60,6 +60,22 @@ namespace Baldibasicpoop
                     .SetPoster(AssetLoader.TextureFromMod(this, "NPC/MrBen/PRI_Benz.png"), "PRI_Beanz1", "PRI_Beanz2")
                     .Build();
 
+                assetMan.Add<Texture2D>("PringulsLarge_Tex", AssetLoader.TextureFromMod(this, Path.Combine("Item", "Pringuls", "PringulsIcon_Large.png")));
+                assetMan.Add<Texture2D>("PringulsSmall_Tex", AssetLoader.TextureFromMod(this, Path.Combine("Item", "Pringuls", "PringulsIcon_Small.png")));
+                assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), 40));
+                assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Explod_Tex"), 40));
+
+                ItemObject Pringuls = new ItemBuilder(Info)
+                    .SetNameAndDescription("Itm_Pringuls", "Desc_Pringuls")
+                    .SetSprites(assetMan.Get<Sprite>("CottonCandySmall"), assetMan.Get<Sprite>("CottonCandyBig"))
+                    .SetEnum("CottonCandy")
+                    .SetShopPrice(480)
+                    .SetGeneratorCost(40)
+                    .SetItemComponent<ITM_Pringuls>()
+                    .SetMeta(ItemFlags.Persists, new string[] { "food" })
+                    .Build();
+                assetMan.Add<ItemObject>("Pringuls", Pringuls);
+
                 GeneratorManagement.Register(this, GenerationModType.Finalizer, delegate (string level, int levelNum, SceneObject obj)
                 {
                     foreach (CustomLevelObject customLevelObject in obj.GetCustomLevelObjects())
