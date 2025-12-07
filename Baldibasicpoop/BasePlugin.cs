@@ -31,45 +31,58 @@ namespace Baldibasicpoop
 
     public class BasePlugin : BaseUnityPlugin
     {
+        public static BasePlugin Instance { get; internal set; }
 
         public AssetManager assetMan = new AssetManager();
 
-        void RegisterImportant()
+        private IEnumerator RegisterImportant()
         {
-            assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("NPC/MrBen/MrBen.png"), 40));
-            assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("NPC/MrBen/MrBen.png"), 40));
-
-            AssetLoader.LocalizationFromMod(this);
-
-            PosterObject benzPoster = ObjectCreators.CreateCharacterPoster(assetMan.Get<Texture2D>("Sprites/Point-Pointer/Poster"), "PST_MisterBenz_Name", "PST_MisterBenz_Desc");
-            //PosterObject Poster = ObjectCreators.CreatePosterObject(); // HOW TF DO I CODE THIS!!!!!
-
-            MisterBenz benz = new NPCBuilder<MisterBenz>(base.Info).AddTrigger().SetEnum("MrBenz").SetName("Mister Benz").SetMinMaxAudioDistance(0f, 100f).SetWanderEnterRooms().SetPoster(benzPoster).Build();
-
-            GeneratorManagement.Register(this, GenerationModType.Finalizer, delegate (string level, int levelNum, SceneObject obj)
+            yield return 3;
+            yield return "Preloading...";
+            try
             {
-                foreach (CustomLevelObject customLevelObject in obj.GetCustomLevelObjects())
+                assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("NPC/MrBen/MrBen.png"), 40));
+                assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("NPC/MrBen/MrBen.png"), 40));
+    
+                AssetLoader.LocalizationFromMod(this);
+    
+                PosterObject benzPoster = ObjectCreators.CreateCharacterPoster(assetMan.Get<Texture2D>("Sprites/Point-Pointer/Poster"), "PST_MisterBenz_Name", "PST_MisterBenz_Desc");
+                //PosterObject Poster = ObjectCreators.CreatePosterObject(); // HOW TF DO I CODE THIS!!!!!
+    
+                MisterBenz benz = new NPCBuilder<MisterBenz>(base.Info).AddTrigger().SetEnum("MrBenz").SetName("Mister Benz").SetMinMaxAudioDistance(0f, 100f).SetWanderEnterRooms().SetPoster(benzPoster).Build();
+    
+                GeneratorManagement.Register(this, GenerationModType.Finalizer, delegate (string level, int levelNum, SceneObject obj)
                 {
-                    if (obj.levelTitle.StartsWith("F1"))
+                    foreach (CustomLevelObject customLevelObject in obj.GetCustomLevelObjects())
                     {
-                        obj.potentialNPCs.Add(new WeightedNPC
+                        if (obj.levelTitle.StartsWith("F1"))
                         {
-                            weight = 999,
-                            selection = benz
-                        });
+                            obj.potentialNPCs.Add(new WeightedNPC
+                            {
+                                weight = 999,
+                                selection = benz
+                            });
+                        }
                     }
-                }
-            });
-
+                });
+            }
+            catch (Exception x)
+            {
+                Debug.LogError(x.Message);
+            }
+            yield break
         }
 
-        public void Awake()
+        void Awake()
         {
+            Instance = this;
             Harmony harmony = new Harmony("baldicancerpoop");
 
             ModdedSaveGame.AddSaveHandler(Info);
 
             harmony.PatchAllConditionals();
+
+            LoadingEvents.RegisterOnAssetsLoaded(base.Info, RegisterImportant(), LoadingEventOrder.Pre);
         }
     }
 }
