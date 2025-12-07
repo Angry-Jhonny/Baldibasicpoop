@@ -72,7 +72,7 @@ namespace Baldibasicpoop
                     .SetShopPrice(480)
                     .SetGeneratorCost(40)
                     .SetItemComponent<ITM_Pringuls>()
-                    .SetMeta(ItemFlags.Persists, new string[] { "food" })
+                    .SetMeta(ItemFlags.None, new string[] { "food" })
                     .Build();
                 assetMan.Add<ItemObject>("Pringuls", Pringuls);
 
