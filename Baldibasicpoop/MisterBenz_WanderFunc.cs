@@ -14,12 +14,7 @@ namespace Baldibasicpoop
             base.Enter();
             base.ChangeNavigationState(new NavigationState_WanderRandom(this.npc, 0));
         }
-
-        public override void Update()
-        {
-            base.Update();
-        }
-
+		
         public override void DestinationEmpty()
         {
             base.DestinationEmpty();
@@ -35,10 +30,6 @@ namespace Baldibasicpoop
 				benz.Explode(other);
 			}
         }
-
-        public override void PlayerInSight(PlayerManager player)
-        {
-            base.PlayerInSight(player);
-        }
+		//removed method playersaw cuz its redundant
     }
 }
