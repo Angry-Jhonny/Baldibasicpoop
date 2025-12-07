@@ -13,7 +13,11 @@ namespace Baldibasicpoop
             behaviorStateMachine.ChangeState(new MisterBenz_Wander(this));
             base.Navigator.SetSpeed(wanderSpeed);
             base.Navigator.maxSpeed = wanderSpeed;
-            spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("");
+            spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Idle"); // collects the sprite inside the assetmanager on the plugin
+        }
+
+        public void Explode() // just added this cuz your npc will explode for s
+        {
         }
 
         public float wanderSpeed = 10f;
