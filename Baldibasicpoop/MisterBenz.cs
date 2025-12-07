@@ -25,8 +25,8 @@ namespace Baldibasicpoop
             {
                 timeToDisappear = 5f;
 				pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("BEN_Explod"));
-                var offset = (other.transform.position - transform.position).normalized;
-                other.GetComponent<Entity>().AddForce(new Force(offset, explosionSpeed * 1.9f, -explosionSpeed));
+                collidedGuy = other;
+                delay = 0.5f;
                 collided = true;
             }
         }
@@ -35,7 +35,6 @@ namespace Baldibasicpoop
         {
             if (collided)
             {
-                spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Explod_Tex");
                 if (timeToDisappear > 0f)
                 {
                     timeToDisappear -= Time.deltaTime;
@@ -44,7 +43,21 @@ namespace Baldibasicpoop
                 {
                     spriteRenderer[0].gameObject.SetActive(false);
                 }
-				Navigator.Entity.SetInteractionState(false);
+                if (delay > 0f)
+                {
+                    delay -= Time.deltaTime;
+                }
+                else
+                {
+                    if (exploded == false)
+                    {
+                        exploded = true;
+                        spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Explod");
+                        var offset = (collidedGuy.transform.position - transform.position).normalized;
+                        collidedGuy.GetComponent<Entity>().AddForce(new Force(offset, explosionSpeed * 1.9f, -explosionSpeed));
+                    }
+                }
+                Navigator.Entity.SetInteractionState(false);
             }
             
         }
@@ -52,9 +65,13 @@ namespace Baldibasicpoop
         public float wanderSpeed = 10f;
         public float chaseSpeed = 18f; // i added this if your npc chases the player
 
-        const float explosionSpeed = 10f;
+        public float explosionSpeed = 10f;
+
+        public float delay = 0;
 
         public bool collided;
+        public bool exploded;
+        public Collider collidedGuy;
         public float timeToDisappear;
 
         [SerializeField]
