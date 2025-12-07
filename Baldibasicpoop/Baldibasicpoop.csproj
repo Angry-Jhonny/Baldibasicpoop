@@ -85,8 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePlugin.cs" />
-    <Compile Include="MisterBenzz_StateBase.cs" />
-    <Compile Include="MisterBenz_WanderFunc.cs" />
+    <Compile Include="ITM_Pringuls.cs" />
     <Compile Include="MisterBenz.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
