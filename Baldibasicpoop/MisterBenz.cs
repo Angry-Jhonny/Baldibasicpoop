@@ -25,8 +25,12 @@ namespace Baldibasicpoop
             {
                 timeToDisappear = 5f;
 				pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("BEN_Explod"));
+<<<<<<< HEAD
                 var offset = (other.transform.position - transform.position).normalized;
                 other.GetComponent<Entity>().AddForce(new Force(offset, explosionSpeed * 1.9f, -explosionSpeed));
+=======
+                other.GetComponent<Entity>().AddForce(new Force(-Singleton<CoreGameManager>.Instance.GetCamera(pm.playerNumber).transform.forward, 128f, -65.3f));
+>>>>>>> 7cb5e0cb6868766022d2b3e6509017c005fd1689
                 collided = true;
             }
         }
