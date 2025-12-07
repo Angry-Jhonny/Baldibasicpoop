@@ -41,9 +41,10 @@ namespace Baldibasicpoop
             yield return "Preloading...";
             try
             {
-                assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("NPC/MrBen/MrBen.png"), 40));
-                assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("NPC/MrBen/MrBen.png"), 40));
-    
+                assetMan.Add<Texture2D>("Benz_Idle_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBen.png")));
+                assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), 40));
+                assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), 40));
+                assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "*EXPLOSION*", SoundType.Effect, Color.white, -1f));
                 AssetLoader.LocalizationFromMod(this);
     
                 PosterObject benzPoster = ObjectCreators.CreateCharacterPoster(assetMan.Get<Texture2D>("Sprites/Point-Pointer/Poster"), "PST_MisterBenz_Name", "PST_MisterBenz_Desc"); // make a json file in Language/English/ in your mod assets so you can replace these unlocalized names and description
