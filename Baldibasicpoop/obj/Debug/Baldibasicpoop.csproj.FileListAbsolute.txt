@@ -83,7 +83,6 @@ C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\BepInEx
 C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\MTM101BaldAPI.xml
 C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\MonoMod.Utils.xml
 C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\MonoMod.RuntimeDetour.xml
-C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibasicpoop.csproj.AssemblyReference.cache
 C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibasicpoop.csproj.CoreCompileInputs.cache
 C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibasicpoop.csproj.CopyComplete
 C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibasicpoop.dll

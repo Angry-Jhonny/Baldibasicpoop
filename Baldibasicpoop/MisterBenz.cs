@@ -23,9 +23,10 @@ namespace Baldibasicpoop
         {
             if (!collided)
             {
-				timeToAppear = 15f;
+                timeToDisappear = 5f;
 				pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("BEN_Explod"));
-                other.GetComponent<Entity>().AddForce(new Force(Vector3.zero, 10f, -10f));
+                var offset = (other.transform.position - transform.position).normalized;
+                other.GetComponent<Entity>().AddForce(new Force(offset, explosionSpeed * 1.9f, -explosionSpeed));
                 collided = true;
             }
         }
@@ -34,18 +35,16 @@ namespace Baldibasicpoop
         {
             if (collided)
             {
-                if (timeToAppear > 0f)
+                spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Explod_Tex");
+                if (timeToDisappear > 0f)
                 {
-                    timeToAppear -= Time.deltaTime;
+                    timeToDisappear -= Time.deltaTime;
+                }
+                else
+                {
+                    spriteRenderer[0].gameObject.SetActive(false);
                 }
 				Navigator.Entity.SetInteractionState(false);
-				spriteRenderer[0].gameObject.SetActive(false);
-            }
-            if (timeToAppear <= 0f)
-            {
-                collided = false;
-                Navigator.Entity.SetInteractionState(true);
-				spriteRenderer[0].gameObject.SetActive(true);
             }
             
         }
@@ -53,8 +52,10 @@ namespace Baldibasicpoop
         public float wanderSpeed = 10f;
         public float chaseSpeed = 18f; // i added this if your npc chases the player
 
+        const float explosionSpeed = 25f;
+
         public bool collided;
-        public float timeToAppear;
+        public float timeToDisappear;
 
         [SerializeField]
         public PropagatedAudioManager pam;
