@@ -4,7 +4,7 @@ namespace Baldibasicpoop
 {
     internal class MisterBenz_Wander : MisterBenz_StateBase
     {
-        public MisterBenz_Wander(MisterBenz pointPointer) : base(pointPointer)
+        public MisterBenz_Wander(MisterBenz benz) : base(benz)
         {
         }
 
@@ -23,6 +23,16 @@ namespace Baldibasicpoop
         {
             base.DestinationEmpty();
             base.ChangeNavigationState(new NavigationState_WanderRandom(this.npc, 0));
+        }
+
+        public override void OnStateTriggerStay(Collider other, bool validCollision)
+		{
+            base.OnStateTriggerStay(other, validCollision);
+            Entity component = other.GetComponent<Entity>();
+			if (component != null && (component.gameObject.layer == LayerMask.NameToLayer("NPCs") || component.gameObject.layer == LayerMask.NameToLayer("Player")))
+			{
+				benz.Explode(other);
+			}
         }
 
         public override void PlayerInSight(PlayerManager player)
