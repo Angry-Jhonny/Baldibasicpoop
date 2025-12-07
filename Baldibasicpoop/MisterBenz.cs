@@ -22,6 +22,7 @@ namespace Baldibasicpoop
         {
             if (!collided)
             {
+				timeToAppear = 15f;
 				pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("BEN_Explod"));
                 other.GetComponent<Entity>().AddForce(new Force(Vector3.zero, 10f, -10f));
                 collided = true;
@@ -52,7 +53,7 @@ namespace Baldibasicpoop
         public float chaseSpeed = 18f; // i added this if your npc chases the player
 
         public bool collided;
-        public float timeToAppear = 15f;
+        public float timeToAppear;
 
         [SerializeField]
         public PropagatedAudioManager pam;
