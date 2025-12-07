@@ -41,12 +41,11 @@ namespace Baldibasicpoop
             yield return "Preloading...";
             try
             {
-                AssetLoader.LocalizationFromFile(Path.Combine(AssetLoader.GetModPath(this), "Subtitles", "NPC.json"), Language.English);
                 assetMan.Add<Texture2D>("Benz_Idle_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBen.png")));
                 assetMan.Add<Texture2D>("Benz_Explod_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBenExplodsisv.png")));
                 assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), 40));
                 assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Explod_Tex"), 40));
-                assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "*KABOOM*", SoundType.Effect, new Color(135,115,97), -1f));
+                assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "BEN_Explod", SoundType.Effect, new Color(135,115,97), -1f));
 
                 //PosterObject Poster = ObjectCreators.CreatePosterObject(); // HOW TF DO I CODE THIS!!!!!
 
@@ -56,9 +55,9 @@ namespace Baldibasicpoop
                     .SetEnum("MrBenz")
                     .SetMinMaxAudioDistance(10f, 150f)
                     .SetWanderEnterRooms()
-                    .SetPoster(AssetLoader.TextureFromMod(this, "NPC/MrBen/PRI_Benz.png"), "Mister Benz", "A guy that wanders around the school, but he\'s fragile so dont bump into him\n <b> Or he might explode!<b>")
+                    .SetPoster(AssetLoader.TextureFromMod(this, "NPC/MrBen/PRI_Benz.png"), "PRI_Beanz1", "PRI_Beanz2")
                     .Build();
-    
+
                 GeneratorManagement.Register(this, GenerationModType.Finalizer, delegate (string level, int levelNum, SceneObject obj)
                 {
                     foreach (CustomLevelObject customLevelObject in obj.GetCustomLevelObjects())
@@ -72,7 +71,10 @@ namespace Baldibasicpoop
                     
                     }
                 });
+
+                AssetLoader.LocalizationFromMod(this);
             }
+
             catch (Exception x)
             {
                 Debug.LogError(x.Message);
