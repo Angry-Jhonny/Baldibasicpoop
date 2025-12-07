@@ -50,7 +50,7 @@ namespace Baldibasicpoop
                 PosterObject benzPoster = ObjectCreators.CreateCharacterPoster(assetMan.Get<Texture2D>("Sprites/Point-Pointer/Poster"), "PST_MisterBenz_Name", "PST_MisterBenz_Desc"); // make a json file in Language/English/ in your mod assets so you can replace these unlocalized names and description
                 //PosterObject Poster = ObjectCreators.CreatePosterObject(); // HOW TF DO I CODE THIS!!!!!
     
-                MisterBenz benz = new NPCBuilder<MisterBenz>(base.Info).AddTrigger().SetEnum("MrBenz").SetName("Mister Benz").SetMinMaxAudioDistance(0f, 100f).SetWanderEnterRooms().SetPoster(benzPoster).Build();
+                MisterBenz benz = new NPCBuilder<MisterBenz>(base.Info).SetName("Mister Benz").AddTrigger().SetEnum("MrBenz").SetMinMaxAudioDistance(0f, 100f).SetWanderEnterRooms().SetPoster(benzPoster).Build();
     
                 GeneratorManagement.Register(this, GenerationModType.Finalizer, delegate (string level, int levelNum, SceneObject obj)
                 {
