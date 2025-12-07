@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.36602.28
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baldibasicpoop", "Baldibasicpoop\Baldibasicpoop.csproj", "{7191D9DE-4846-4B14-804C-FFB0F5A85491}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7191D9DE-4846-4B14-804C-FFB0F5A85491}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7191D9DE-4846-4B14-804C-FFB0F5A85491}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7191D9DE-4846-4B14-804C-FFB0F5A85491}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7191D9DE-4846-4B14-804C-FFB0F5A85491}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6DBD944-7933-4264-9D6A-AF357CBF6616}
+	EndGlobalSection
+EndGlobal
