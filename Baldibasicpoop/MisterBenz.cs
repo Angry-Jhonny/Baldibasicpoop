@@ -10,10 +10,13 @@ namespace Baldibasicpoop
     {
         public override void Initialize()
         {
+            behaviorStateMachine.ChangeState(new MisterBenz_Wander(this));
             base.Navigator.SetSpeed(wanderSpeed);
             base.Navigator.maxSpeed = wanderSpeed;
+            spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("");
         }
 
         public float wanderSpeed = 10f;
+        public float chaseSpeed = 18f; // i added this if your npc chases the player
     }
 }
