@@ -62,18 +62,21 @@ namespace Baldibasicpoop
 
                 assetMan.Add<Texture2D>("PringulsLarge_Tex", AssetLoader.TextureFromMod(this, Path.Combine("Item", "Pringuls", "PringulsIcon_Large.png")));
                 assetMan.Add<Texture2D>("PringulsSmall_Tex", AssetLoader.TextureFromMod(this, Path.Combine("Item", "Pringuls", "PringulsIcon_Small.png")));
-                assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), 40));
-                assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Explod_Tex"), 40));
+                assetMan.Add<Sprite>("PringulsLarge", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("PringulsLarge_Tex"), 40));
+                assetMan.Add<Sprite>("PringulsSmall", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("PringulsSmall_Tex"), 40));
+
+                assetMan.Add<SoundObject>("SFX_ChipsFall", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("Item", "Pringuls", "SFX_ChipsFall.wav")), "SFX_ChipsFall", SoundType.Effect, Color.white, -1f));
 
                 ItemObject Pringuls = new ItemBuilder(Info)
                     .SetNameAndDescription("Itm_Pringuls", "Desc_Pringuls")
-                    .SetSprites(assetMan.Get<Sprite>("CottonCandySmall"), assetMan.Get<Sprite>("CottonCandyBig"))
+                    .SetSprites(assetMan.Get<Sprite>("PringulsSmall"), assetMan.Get<Sprite>("PringulsLarge"))
                     .SetEnum("CottonCandy")
                     .SetShopPrice(480)
                     .SetGeneratorCost(40)
                     .SetItemComponent<ITM_Pringuls>()
                     .SetMeta(ItemFlags.None, new string[] { "food" })
                     .Build();
+                ((ITM_Pringuls)Pringuls.item).dropSound = BasePlugin.Instance.assetMan.Get<SoundObject>("SFX_ChipsFall");
                 assetMan.Add<ItemObject>("Pringuls", Pringuls);
 
                 GeneratorManagement.Register(this, GenerationModType.Finalizer, delegate (string level, int levelNum, SceneObject obj)

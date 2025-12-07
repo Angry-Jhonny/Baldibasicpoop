@@ -24,7 +24,7 @@ namespace Baldibasicpoop
             {
                 if (i < UnityEngine.Object.FindObjectsOfType<GottaSweep>().Length)
                 {
-                    UnityEngine.Object.FindObjectsOfType<GottaSweep>()[i].navigationStateMachine.ChangeState(new NavigationState_TargetPosition(UnityEngine.Object.FindObjectsOfType<GottaSweep>()[i], 4330, pm.transform.position));
+                    UnityEngine.Object.FindObjectsOfType<GottaSweep>()[i].navigationStateMachine.ChangeState(new NavigationState_WanderRandom(UnityEngine.Object.FindObjectsOfType<GottaSweep>()[i], 9999));
                 }
             }
             Singleton<CoreGameManager>.Instance.audMan.PlaySingle(dropSound);

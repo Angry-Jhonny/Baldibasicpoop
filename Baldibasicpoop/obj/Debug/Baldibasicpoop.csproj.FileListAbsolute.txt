@@ -87,3 +87,4 @@ C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldiba
 C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibasicpoop.csproj.CopyComplete
 C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibasicpoop.dll
 C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibasicpoop.pdb
+C:\Users\Giochi\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibasicpoop.csproj.AssemblyReference.cache
