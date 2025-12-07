@@ -45,7 +45,11 @@ namespace Baldibasicpoop
                 assetMan.Add<Texture2D>("Benz_Explod_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBenExplodsisv.png")));
                 assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), 40));
                 assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Explod_Tex"), 40));
+<<<<<<< HEAD
                 assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "BEN_Explod", SoundType.Effect, new Color(135,115,97), -1f));
+=======
+                assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "*KABOOM*", SoundType.Effect, new Color(135 / 255,115 / 255,97 / 255), -1f)); // made the color values divided by 255 (when the r value is 1 then it will be 255)
+>>>>>>> eb53e2f7dbb0c55da62f8949cf59a0b3d56336fa
 
                 //PosterObject Poster = ObjectCreators.CreatePosterObject(); // HOW TF DO I CODE THIS!!!!!
 
@@ -53,6 +57,7 @@ namespace Baldibasicpoop
                     .SetName("Mister Benz")
                     .AddTrigger()
                     .SetEnum("MrBenz")
+                    .SetForcedSubtitleColor(new Color(135 / 255,115 / 255,97 / 255)
                     .SetMinMaxAudioDistance(10f, 150f)
                     .SetWanderEnterRooms()
                     .SetPoster(AssetLoader.TextureFromMod(this, "NPC/MrBen/PRI_Benz.png"), "PRI_Beanz1", "PRI_Beanz2")
