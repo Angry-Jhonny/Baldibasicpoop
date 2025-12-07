@@ -10,6 +10,7 @@ namespace Baldibasicpoop
     {
         public override void Initialize()
         {
+			base.Initialize();
             behaviorStateMachine.ChangeState(new MisterBenz_Wander(this));
             base.Navigator.SetSpeed(wanderSpeed);
             base.Navigator.maxSpeed = wanderSpeed;
