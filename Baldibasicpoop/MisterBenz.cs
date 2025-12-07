@@ -22,6 +22,7 @@ namespace Baldibasicpoop
         {
             if (!collided)
             {
+				pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("BEN_Explod"));
                 other.GetComponent<Entity>().AddForce(new Force(Vector3.zero, 10f, -10f));
                 collided = true;
             }
