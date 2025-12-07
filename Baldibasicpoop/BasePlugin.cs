@@ -46,7 +46,7 @@ namespace Baldibasicpoop
     
                 AssetLoader.LocalizationFromMod(this);
     
-                PosterObject benzPoster = ObjectCreators.CreateCharacterPoster(assetMan.Get<Texture2D>("Sprites/Point-Pointer/Poster"), "PST_MisterBenz_Name", "PST_MisterBenz_Desc");
+                PosterObject benzPoster = ObjectCreators.CreateCharacterPoster(assetMan.Get<Texture2D>("Sprites/Point-Pointer/Poster"), "PST_MisterBenz_Name", "PST_MisterBenz_Desc"); // make a json file in Language/English/ in your mod assets so you can replace these unlocalized names and description
                 //PosterObject Poster = ObjectCreators.CreatePosterObject(); // HOW TF DO I CODE THIS!!!!!
     
                 MisterBenz benz = new NPCBuilder<MisterBenz>(base.Info).AddTrigger().SetEnum("MrBenz").SetName("Mister Benz").SetMinMaxAudioDistance(0f, 100f).SetWanderEnterRooms().SetPoster(benzPoster).Build();
@@ -55,14 +55,13 @@ namespace Baldibasicpoop
                 {
                     foreach (CustomLevelObject customLevelObject in obj.GetCustomLevelObjects())
                     {
-                        if (obj.levelTitle.StartsWith("F1"))
+                        // removed the if statement so the npc will force spawn on every floor
+                        obj.potentialNPCs.Add(new WeightedNPC
                         {
-                            obj.potentialNPCs.Add(new WeightedNPC
-                            {
-                                weight = 999,
-                                selection = benz
-                            });
-                        }
+                            weight = 999,
+                            selection = benz
+                        });
+                    
                     }
                 });
             }
