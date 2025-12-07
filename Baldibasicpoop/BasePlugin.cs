@@ -69,7 +69,7 @@ namespace Baldibasicpoop
             {
                 Debug.LogError(x.Message);
             }
-            yield break
+            yield break;
         }
 
         void Awake()
