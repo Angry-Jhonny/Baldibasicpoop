@@ -41,22 +41,22 @@ namespace Baldibasicpoop
             yield return "Preloading...";
             try
             {
+                AssetLoader.LocalizationFromFile(Path.Combine(AssetLoader.GetModPath(this), "Subtitles", "NPC.json"), Language.English);
                 assetMan.Add<Texture2D>("Benz_Idle_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBen.png")));
                 assetMan.Add<Texture2D>("Benz_Explod_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBenExplodsisv.png")));
                 assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), 40));
                 assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Explod_Tex"), 40));
-                assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "*EXPLOSION*", SoundType.Effect, Color.white, -1f));
-                AssetLoader.LocalizationFromMod(this);
+                assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "*KABOOM*", SoundType.Effect, new Color(135,115,97), -1f));
 
                 //PosterObject Poster = ObjectCreators.CreatePosterObject(); // HOW TF DO I CODE THIS!!!!!
-    
+
                 MisterBenz benz = new NPCBuilder<MisterBenz>(base.Info)
                     .SetName("Mister Benz")
                     .AddTrigger()
                     .SetEnum("MrBenz")
                     .SetMinMaxAudioDistance(10f, 150f)
                     .SetWanderEnterRooms()
-                    .SetPoster(AssetLoader.TextureFromMod(this, "NPC/MrBen/PRI_Benz.png"), "PST_MisterBenz_Name", "PST_MisterBenz_Desc")
+                    .SetPoster(AssetLoader.TextureFromMod(this, "NPC/MrBen/PRI_Benz.png"), "Mister Benz", "A guy that wanders around the school, but he\'s fragile so dont bump into him\n <b> Or he might explode!<b>")
                     .Build();
     
                 GeneratorManagement.Register(this, GenerationModType.Finalizer, delegate (string level, int levelNum, SceneObject obj)
