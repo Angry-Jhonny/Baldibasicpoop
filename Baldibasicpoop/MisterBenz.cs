@@ -10,7 +10,7 @@ namespace Baldibasicpoop
     {
         public override void Initialize()
         {
-            behaviorStateMachine.ChangeState(new MisterBenz_WanderFunc(this));
+            behaviorStateMachine.ChangeState(new MisterBenz_Wander(this));
             base.Navigator.SetSpeed(wanderSpeed);
             base.Navigator.maxSpeed = wanderSpeed;
             spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Idle"); // collects the sprite inside the assetmanager on the plugin
