@@ -6,7 +6,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace CarnivalPack
+namespace Baldibasicpoop // dont forget to change namespaces you silly
 {
 
     public class PringulsManager : MonoBehaviour
