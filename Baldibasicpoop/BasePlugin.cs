@@ -48,7 +48,7 @@ namespace Baldibasicpoop
                 assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "*EXPLOSION*", SoundType.Effect, Color.white, -1f));
                 AssetLoader.LocalizationFromMod(this);
     
-                PosterObject benzPoster = ObjectCreators.CreateCharacterPoster(assetMan.Get<Texture2D>("NPC/MrBen/PRI_Benz.png"), "PST_MisterBenz_Name", "PST_MisterBenz_Desc"); // make a json file in Language/English/ in your mod assets so you can replace these unlocalized names and description
+                PosterObject benzPoster = ObjectCreators.CreateCharacterPoster(AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "PRI_Benz.png"), "PST_MisterBenz_Name", "PST_MisterBenz_Desc"); // make a json file in Language/English/ in your mod assets so you can replace these unlocalized names and description
                 //PosterObject Poster = ObjectCreators.CreatePosterObject(); // HOW TF DO I CODE THIS!!!!!
     
                 MisterBenz benz = new NPCBuilder<MisterBenz>(base.Info).SetName("Mister Benz").AddTrigger().SetEnum("MrBenz").SetMinMaxAudioDistance(0f, 100f).SetWanderEnterRooms().SetPoster(benzPoster).Build();
