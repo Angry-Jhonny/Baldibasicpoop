@@ -4,11 +4,11 @@ namespace Baldibasicpoop
 {
     internal class MisterBenz_StateBase : NpcState
     {
-        public MisterBenz_StateBase(MisterBenz pointPointer) : base(pointPointer)
+        public MisterBenz_StateBase(MisterBenz benz) : base(benz)
         {
-            this.pointPointer = pointPointer;
+            this.benz = benz;
         }
 
-        protected MisterBenz pointPointer;
+        protected MisterBenz benz;
     }
 }
