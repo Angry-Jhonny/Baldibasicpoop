@@ -100,6 +100,12 @@ namespace Baldibasicpoop
                             weight = 999,
                             selection = benz
                         });
+                        // to generate custom posters, you simply do this below
+                        customLevelObject.posters = customLevelObject.posters.AddToArray(new WeightedPosterObject
+                        {
+                            weight = 60, // weight things (chance to spawn)
+                            selection = Poster
+                        });
                     }
                 });
 
