@@ -2,16 +2,16 @@
 using MTM101BaldAPI.PlusExtensions;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Baldibasicpoop
 {
-
-    public class PringulsManager : MonoBehaviour
+    public class ObjectPringulsMess : EnvironmentObject
     {
+        void OnTriggerEnter(Collider other)
+        {
 
+        }
     }
 
     public class ITM_Pringuls : Item
