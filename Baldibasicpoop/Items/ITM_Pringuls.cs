@@ -10,8 +10,17 @@ namespace Baldibasicpoop
     {
         void OnTriggerEnter(Collider other)
         {
-
+            if (other.GetComponent<GottaSweep>())
+            {
+                audMan.PlaySingle(audClean);
+            }
         }
+
+        [SerializeField]
+        internal PropagatedAudioManager audMan;
+
+        [SerializeField]
+        internal SoundObject audClean;
     }
 
     public class ITM_Pringuls : Item

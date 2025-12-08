@@ -48,7 +48,7 @@ namespace Baldibasicpoop
             {
                 if (timeToDisappear > 0f)
                 {
-                    timeToDisappear -= Time.deltaTime;
+                    timeToDisappear -= ec.NpcTimeScale * Time.deltaTime;
                 }
                 else
                 {
@@ -56,7 +56,7 @@ namespace Baldibasicpoop
                 }
                 if (delay > 0f)
                 {
-                    delay -= Time.deltaTime;
+                    delay -= ec.NpcTimeScale * Time.deltaTime;
                 }
                 else
                 {

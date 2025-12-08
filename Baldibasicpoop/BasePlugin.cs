@@ -70,6 +70,8 @@ namespace Baldibasicpoop
 
                 assetMan.Add<SoundObject>("SFX_ChipsFall", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("Item", "Pringuls", "SFX_ChipsFall.wav")), "SFX_ChipsFall", SoundType.Effect, Color.white, -1f));
 
+                //EnvironmentObject PringulMess = new ObjectBuilder(Info)
+
                 ItemObject Pringuls = new ItemBuilder(Info)
                     .SetNameAndDescription("Itm_Pringuls", "Desc_Pringuls")
                     .SetSprites(assetMan.Get<Sprite>("PringulsSmall"), assetMan.Get<Sprite>("PringulsLarge"))
