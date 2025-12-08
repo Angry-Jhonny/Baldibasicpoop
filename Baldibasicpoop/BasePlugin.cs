@@ -46,8 +46,8 @@ namespace Baldibasicpoop
 
                 assetMan.Add<Texture2D>("Benz_Idle_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBen.png")));
                 assetMan.Add<Texture2D>("Benz_Explod_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBenExplodsisv.png")));
-                assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), 32));
-                assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Explod_Tex"), 32));
+                assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), new Vector2(0.5f, 0.4f), 32));
+                assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Explod_Tex"), new Vector2(0.5f, 0.4f), 32));
 
                 assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "BEN_Explod", SoundType.Effect, new Color(135 / 255, 115 / 255, 97 / 255), -1f));
 
@@ -55,7 +55,7 @@ namespace Baldibasicpoop
                     .SetName("Mister Benz")
                     .AddTrigger()
                     .SetEnum("MrBenz")
-                    .SetForcedSubtitleColor(new Color(135 / 255,115 / 255,97 / 255))
+                    .SetForcedSubtitleColor(new Color(135 / 255, 115 / 255, 97 / 255))
                     .SetMinMaxAudioDistance(10f, 150f)
                     .SetWanderEnterRooms()
                     .SetPoster(AssetLoader.TextureFromMod(this, "NPC/MrBen/PRI_Benz.png"), "PRI_Beanz1", "PRI_Beanz2")
@@ -71,15 +71,18 @@ namespace Baldibasicpoop
                 assetMan.Add<Sprite>("PringulsMess", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("PringulsMess_Tex"), 32));
 
                 assetMan.Add<SoundObject>("SFX_ChipsFall", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("Item", "Pringuls", "SFX_ChipsFall.wav")), "SFX_ChipsFall", SoundType.Effect, Color.white, -1f));
-
-                SpriteRenderer PringulSpriteRenderer = new GameObject("SpriteBase").AddComponent<SpriteRenderer>();
+                assetMan.Add<SoundObject>("GS_Cleaning", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "GottaSweep", "GS_Cleaning.wav")), "GS_Cleaning", SoundType.Effect, Color.white, -1f));
 
                 Entity PringulsMess = new EntityBuilder()
                     .SetName("Pringuls")
                     .AddTrigger(1f)
                     .SetLayerCollisionMask(2113541)
-                    .AddDefaultRenderBaseFunction(assetMan.Get<Sprite>("PringulsMess"))
                     .Build();
+                SpriteRenderer pringulmessRenderer = PringulsMess.gameObject.AddComponent<SpriteRenderer>();
+                pringulmessRenderer.sprite = assetMan.Get<Sprite>("PringulsMess");
+                ObjectPringulsMess pringulmess = PringulsMess.gameObject.AddComponent<ObjectPringulsMess>();
+                pringulmess.audMan = pringulmess.gameObject.AddComponent<PropagatedAudioManager>();
+                pringulmess.audClean = BasePlugin.Instance.assetMan.Get<SoundObject>("GS_Cleaning");
 
                 ItemObject Pringuls = new ItemBuilder(Info)
                     .SetNameAndDescription("Itm_Pringuls", "Desc_Pringuls")
@@ -88,9 +91,10 @@ namespace Baldibasicpoop
                     .SetShopPrice(480)
                     .SetGeneratorCost(40)
                     .SetItemComponent<ITM_Pringuls>()
-                    .SetMeta(ItemFlags.None, new string[] { "food" })
+                    .SetMeta(ItemFlags.Persists, new string[] { "food" })
                     .Build();
                 ((ITM_Pringuls)Pringuls.item).dropSound = BasePlugin.Instance.assetMan.Get<SoundObject>("SFX_ChipsFall");
+                ((ITM_Pringuls)Pringuls.item).PringulMessObject = PringulsMess;
                 assetMan.Add<ItemObject>("Pringuls", Pringuls);
 
                 ////////////////////////////////////////////////// POSTERS //////////////////////////////////////////////////
@@ -112,11 +116,11 @@ namespace Baldibasicpoop
                             selection = benz
                         });
                         // to generate custom posters, you simply do this below
-                        customLevelObject.posters = customLevelObject.posters.AddToArray(new WeightedPosterObject
-                        {
-                            weight = 60, // weight things (chance to spawn)
-                            selection = PST_UglyKids
-                        });
+                        //customLevelObject.posters = customLevelObject.posters.AddToArray(new WeightedPosterObject
+                        //{
+                        //    weight = 60, // weight things (chance to spawn)
+                        //    selection = PST_UglyKids
+                        //});
                     }
                 });
 
