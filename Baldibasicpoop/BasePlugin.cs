@@ -86,7 +86,7 @@ namespace Baldibasicpoop
 
                 assetMan.Add<Texture2D>("PST_UglyKids", AssetLoader.TextureFromMod(this, Path.Combine("Posters", "UglyKids.png")));
 
-                PosterObject Poster = ObjectCreators.CreatePosterObject(assetMan.Get<Texture2D>("PST_UglyKids"), null);
+                PosterObject PST_UglyKids = ObjectCreators.CreatePosterObject(assetMan.Get<Texture2D>("PST_UglyKids"), null);
 
                 ////////////////////////////////////////////////// GENERATOR SETTINGS //////////////////////////////////////////////////
 
@@ -104,7 +104,7 @@ namespace Baldibasicpoop
                         customLevelObject.posters = customLevelObject.posters.AddToArray(new WeightedPosterObject
                         {
                             weight = 60, // weight things (chance to spawn)
-                            selection = Poster
+                            selection = PST_UglyKids
                         });
                     }
                 });
