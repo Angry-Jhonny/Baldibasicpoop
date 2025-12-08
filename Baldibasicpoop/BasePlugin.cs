@@ -46,8 +46,8 @@ namespace Baldibasicpoop
 
                 assetMan.Add<Texture2D>("Benz_Idle_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBen.png")));
                 assetMan.Add<Texture2D>("Benz_Explod_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBenExplodsisv.png")));
-                assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), 40));
-                assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Explod_Tex"), 40));
+                assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), 32));
+                assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Explod_Tex"), 32));
 
                 assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "BEN_Explod", SoundType.Effect, new Color(135 / 255, 115 / 255, 97 / 255), -1f));
 
@@ -65,21 +65,21 @@ namespace Baldibasicpoop
 
                 assetMan.Add<Texture2D>("PringulsLarge_Tex", AssetLoader.TextureFromMod(this, Path.Combine("Item", "Pringuls", "PringulsIcon_Large.png")));
                 assetMan.Add<Texture2D>("PringulsSmall_Tex", AssetLoader.TextureFromMod(this, Path.Combine("Item", "Pringuls", "PringulsIcon_Small.png")));
-                assetMan.Add<Sprite>("PringulsLarge", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("PringulsLarge_Tex"), 40));
-                assetMan.Add<Sprite>("PringulsSmall", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("PringulsSmall_Tex"), 40));
+                assetMan.Add<Texture2D>("PringulsMess_Tex", AssetLoader.TextureFromMod(this, Path.Combine("Item", "Pringuls", "PringulChip.png")));
+                assetMan.Add<Sprite>("PringulsLarge", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("PringulsLarge_Tex"), 64));
+                assetMan.Add<Sprite>("PringulsSmall", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("PringulsSmall_Tex"), 64));
+                assetMan.Add<Sprite>("PringulsMess", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("PringulsMess_Tex"), 32));
 
                 assetMan.Add<SoundObject>("SFX_ChipsFall", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("Item", "Pringuls", "SFX_ChipsFall.wav")), "SFX_ChipsFall", SoundType.Effect, Color.white, -1f));
+
+                SpriteRenderer PringulSpriteRenderer = new GameObject("SpriteBase").AddComponent<SpriteRenderer>();
 
                 Entity PringulsMess = new EntityBuilder()
                     .SetName("Pringuls")
                     .AddTrigger(1f)
                     .SetLayerCollisionMask(2113541)
-                    .AddRenderbaseFunction(delegate (Entity ent)
-                    {
-                        Transform parent = SpriteRenderer.transform.parent;
-                        parent.SetParent(ent.transform);
-                        return parent;
-                    }, 1);
+                    .AddDefaultRenderBaseFunction(assetMan.Get<Sprite>("PringulsMess"))
+                    .Build();
 
                 ItemObject Pringuls = new ItemBuilder(Info)
                     .SetNameAndDescription("Itm_Pringuls", "Desc_Pringuls")
