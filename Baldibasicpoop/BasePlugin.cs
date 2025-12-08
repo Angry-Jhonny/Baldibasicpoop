@@ -41,14 +41,15 @@ namespace Baldibasicpoop
             yield return "Preloading...";
             try
             {
+
+                ////////////////////////////////////////////////// NPC'S //////////////////////////////////////////////////
+
                 assetMan.Add<Texture2D>("Benz_Idle_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBen.png")));
                 assetMan.Add<Texture2D>("Benz_Explod_Tex", AssetLoader.TextureFromMod(this, Path.Combine("NPC", "MrBen", "MrBenExplodsisv.png")));
                 assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Idle_Tex"), 40));
                 assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(assetMan.Get<Texture2D>("Benz_Explod_Tex"), 40));
 
                 assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "BEN_Explod", SoundType.Effect, new Color(135 / 255, 115 / 255, 97 / 255), -1f));
-
-                //PosterObject Poster = ObjectCreators.CreatePosterObject(); // HOW TF DO I CODE THIS!!!!!
 
                 MisterBenz benz = new NPCBuilder<MisterBenz>(base.Info)
                     .SetName("Mister Benz")
@@ -59,6 +60,8 @@ namespace Baldibasicpoop
                     .SetWanderEnterRooms()
                     .SetPoster(AssetLoader.TextureFromMod(this, "NPC/MrBen/PRI_Benz.png"), "PRI_Beanz1", "PRI_Beanz2")
                     .Build();
+
+                ////////////////////////////////////////////////// ITEMS //////////////////////////////////////////////////
 
                 assetMan.Add<Texture2D>("PringulsLarge_Tex", AssetLoader.TextureFromMod(this, Path.Combine("Item", "Pringuls", "PringulsIcon_Large.png")));
                 assetMan.Add<Texture2D>("PringulsSmall_Tex", AssetLoader.TextureFromMod(this, Path.Combine("Item", "Pringuls", "PringulsIcon_Small.png")));
@@ -79,6 +82,14 @@ namespace Baldibasicpoop
                 ((ITM_Pringuls)Pringuls.item).dropSound = BasePlugin.Instance.assetMan.Get<SoundObject>("SFX_ChipsFall");
                 assetMan.Add<ItemObject>("Pringuls", Pringuls);
 
+                ////////////////////////////////////////////////// POSTERS //////////////////////////////////////////////////
+
+                assetMan.Add<Texture2D>("PST_UglyKids", AssetLoader.TextureFromMod(this, Path.Combine("Posters", "UglyKids.png")));
+
+                PosterObject Poster = ObjectCreators.CreatePosterObject(assetMan.Get<Texture2D>("PST_UglyKids"), null);
+
+                ////////////////////////////////////////////////// GENERATOR SETTINGS //////////////////////////////////////////////////
+
                 GeneratorManagement.Register(this, GenerationModType.Finalizer, delegate (string level, int levelNum, SceneObject obj)
                 {
                     foreach (CustomLevelObject customLevelObject in obj.GetCustomLevelObjects())
@@ -89,9 +100,10 @@ namespace Baldibasicpoop
                             weight = 999,
                             selection = benz
                         });
-                    
                     }
                 });
+
+                ////////////////////////////////////////////////// LOCALIZATION //////////////////////////////////////////////////
 
                 AssetLoader.LocalizationFromMod(this);
             }
