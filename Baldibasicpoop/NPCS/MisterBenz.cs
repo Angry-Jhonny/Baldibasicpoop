@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using MTM101BaldAPI.Reflection;
 using UnityEngine;
 
-namespace Baldibasicpoop
+namespace Baldibasicpoop.NPCS
 {
     internal class MisterBenz_StateBase : NpcState
     {
@@ -18,7 +18,6 @@ namespace Baldibasicpoop
 
     public class MisterBenz : NPC
     {
-
         public override void Initialize()
         {
 			base.Initialize();

@@ -22,7 +22,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using PlusStudioLevelLoader;
 using PlusStudioLevelFormat;
-using MTM101BaldAPI.Components.Animation;
+
+
+using Baldibasicpoop.CustomItems;
+using Baldibasicpoop.NPCS;
+using Baldibasicpoop.Editor;
 
 namespace Baldibasicpoop
 {
@@ -50,6 +54,8 @@ namespace Baldibasicpoop
                 // ASSETS //
                     // Images //
 
+                assetMan.Add<Sprite>("MainMenuImage", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "PoopMainMenu.png"), 96));
+
                 assetMan.Add<Texture2D>("BeanWall", AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanWall.png"));
                 assetMan.Add<Texture2D>("BeanCeil", AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanCeiling.png"));
                 assetMan.Add<Texture2D>("BeanFloor", AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanCarpet.png"));
@@ -57,20 +63,36 @@ namespace Baldibasicpoop
                 assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "MrBen", "MrBen.png"), new Vector2(0.5f, 0.4f), 32));
                 assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "MrBen", "MrBenExplodsisv.png"), new Vector2(0.5f, 0.4f), 32));
 
+                assetMan.Add<Sprite>("Mii13_Idle", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "Mystman13", "Mii13.png"), new Vector2(0.5f, 0.4f), 32));
+
                 assetMan.Add<Sprite>("PringulsLarge", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "Pringuls", "PringulsIcon_Large.png"), 50));
                 assetMan.Add<Sprite>("PringulsSmall", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "Pringuls", "PringulsIcon_Small.png"), 25));
-                assetMan.Add<Sprite>("PringulsMess", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "Pringuls", "PringulChip.png"), 32));
 
-                assetMan.Add<Sprite>("BeanPhoneSprite", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Objects", "Billboards", "MrBenPhone.png"), 96));
+                assetMan.Add<Sprite>("ShitLarge", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "Shit", "ShitIcon_Large.png"), 50));
+                assetMan.Add<Sprite>("ShitSmall", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "Shit", "ShitIcon_Small.png"), 25));
 
-                assetMan.Add<Texture2D>("PST_UglyKids", AssetLoader.TextureFromMod(this, Path.Combine("Posters", "UglyKids.png")));
+                assetMan.Add<Sprite>("BeanPhoneSprite", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Objects", "Billboards", "MrBenPhone.png"), new Vector2(0.5f, 0), 24));
+                assetMan.Add<Sprite>("BeanLampSprite", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Objects", "Billboards", "MrBenLamp.png"), new Vector2(0.5f, 0), 24));
+
+                assetMan.Add<Texture2D>("PST_UglyKids", AssetLoader.TextureFromMod(this, Path.Combine("Posters", "PST_UglyKids.png")));
+                assetMan.Add<Texture2D>("PST_BaldiSong", AssetLoader.TextureFromMod(this, Path.Combine("Posters", "PST_BaldiSong.png")));
+
+                assetMan.Add<Sprite>("Editor_MrBenz", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_benz.png"), 1));
+                assetMan.Add<Sprite>("Editor_Mii13", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_mii13.png"), 1));
+                assetMan.Add<Sprite>("Editor_BeanPhone", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_beanphone.png"), 1));
+                assetMan.Add<Sprite>("Editor_BeanLamp", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_beanlamp.png"), 1));
+                assetMan.Add<Sprite>("Editor_BeanHouse", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "room_beanhouse.png"), 1));
 
                 // SoundObject //
 
                 assetMan.Add<SoundObject>("SFX_ChipsFall", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("Item", "Pringuls", "SFX_ChipsFall.wav")), "SFX_ChipsFall", SoundType.Effect, Color.white, -1f));
+                assetMan.Add<SoundObject>("SFX_Die", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("Item", "Shit", "SFX_Die.wav")), "SFX_Die", SoundType.Voice, Color.white, -1f));
 
-                assetMan.Add<SoundObject>("GS_Cleaning", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "GottaSweep", "GS_Cleaning.wav")), "GS_Cleaning", SoundType.Effect, Color.white, -1f));
-                assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "BEN_Explod", SoundType.Effect, new Color(135 / 255, 115 / 255, 97 / 255), -1f));
+                assetMan.Add<SoundObject>("GS_Cleaning", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "GottaSweep", "GS_Cleaning.wav")), "GS_Cleaning", SoundType.Effect, Color.green, -1f));
+
+                assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "BEN_Explod", SoundType.Effect, new Color(131f / 255f, 75f / 255f, 55f / 255f), -1f));
+
+                assetMan.Add<SoundObject>("Mii13_Hey", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "Mystman13", "Mii13_Hey.wav")), "Mii13_Hey", SoundType.Voice, new Color(51f / 255f, 59f / 255f, 67f / 255f), -1f));
 
                 ////////////////////////////////////////////////// OBJECTS //////////////////////////////////////////////////
 
@@ -78,17 +100,23 @@ namespace Baldibasicpoop
                 BeanzPhoneBase.GetComponentInChildren<SpriteRenderer>().sprite = assetMan.Get<Sprite>("BeanPhoneSprite");
                 BeanzPhoneBase.name = "BeanzPhone";
                 assetMan.Add<GameObject>("BeanzPhone", BeanzPhoneBase);
+                LevelLoaderPlugin.Instance.basicObjects.Add("beanzphone", assetMan.Get<GameObject>("BeanzPhone"));
+
+                GameObject BeanzLampBase = GameObject.Instantiate<GameObject>(Resources.FindObjectsOfTypeAll<EnvironmentObject>().First(x => x.name == "Plant" && x.GetInstanceID() >= 0 && x.transform.parent == null).gameObject, MTM101BaldiDevAPI.prefabTransform);
+                BeanzLampBase.GetComponentInChildren<SpriteRenderer>().sprite = assetMan.Get<Sprite>("BeanLampSprite");
+                BeanzLampBase.name = "BeanzLamp";
+                assetMan.Add<GameObject>("BeanzLamp", BeanzLampBase);
+                LevelLoaderPlugin.Instance.basicObjects.Add("beanzlamp", assetMan.Get<GameObject>("BeanzLamp"));
 
                 ////////////////////////////////////////////////// ROOMS //////////////////////////////////////////////////
 
                 assetMan.Add<StandardDoorMats>("BeanzDoorMats", ObjectCreators.CreateDoorDataObject("BeanDoor", AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanDoor_Open.png"), AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanDoor_Closed.png")));
                 LevelLoaderPlugin.Instance.roomSettings.Add("beanHouse", new RoomSettings(BasePlugin.beanzRoomCat, RoomType.Room, new Color(131f / 255f, 75f / 255f, 55f / 255f), assetMan.Get<StandardDoorMats>("BeanzDoorMats"), null));
-                LevelLoaderPlugin.Instance.basicObjects.Add("bean_Phone", assetMan.Get<GameObject>("BeanzPhone"));
                 LevelLoaderPlugin.Instance.roomTextureAliases.Add("BeanzFloor", assetMan.Get<Texture2D>("BeanFloor"));
                 LevelLoaderPlugin.Instance.roomTextureAliases.Add("BeanzWall", assetMan.Get<Texture2D>("BeanWall"));
                 LevelLoaderPlugin.Instance.roomTextureAliases.Add("BeanzCeil", assetMan.Get<Texture2D>("BeanCeil"));
 
-                string beanRoomPath = Path.Combine(AssetLoader.GetModPath(this), "Rooms", "BeanzHouse", "beanhouse_4_5.rbpl");
+                string beanRoomPath = Path.Combine(AssetLoader.GetModPath(this), "Rooms", "BeanzHouse", "beanhouse.rbpl");
 
                 List<WeightedRoomAsset> potentialBeanzRoom = new List<WeightedRoomAsset>();
                 BinaryReader reader = new BinaryReader(File.OpenRead(beanRoomPath));
@@ -96,6 +124,11 @@ namespace Baldibasicpoop
                 reader.Close();
                 ExtendedRoomAsset beanroomasset = LevelImporter.CreateRoomAsset(formatAsset);
                 beanroomasset.lightPre = LevelLoaderPlugin.Instance.lightTransforms["standardhanging"];
+                potentialBeanzRoom.Add(new WeightedRoomAsset()
+                {
+                    selection = beanroomasset,
+                    weight = 999999999
+                });
 
                 ////////////////////////////////////////////////// NPC'S //////////////////////////////////////////////////
 
@@ -103,42 +136,95 @@ namespace Baldibasicpoop
                     .SetName("Mister Benz")
                     .AddTrigger()
                     .SetEnum("MrBenz")
-                    .SetForcedSubtitleColor(new Color(135 / 255, 115 / 255, 97 / 255))
                     .SetMinMaxAudioDistance(10f, 150f)
-                    .AddPotentialRoomAssets(potentialBeanzRoom.ToArray())
+                    .AddSpawnableRoomCategories(beanzRoomCat)
+                    .AddPotentialRoomAsset(beanroomasset, 100)
                     .SetWanderEnterRooms()
+                    .IgnorePlayerOnSpawn()
                     .SetPoster(AssetLoader.TextureFromMod(this, "NPC/MrBen/PRI_Benz.png"), "PRI_Beanz1", "PRI_Beanz2")
                     .Build();
+                benz.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Idle");
+                assetMan.Add<NPC>("MrBenz", benz);
 
-                ////////////////////////////////////////////////// ITEMS //////////////////////////////////////////////////
-
-                Entity PringulsMess = new EntityBuilder()
-                    .SetName("Pringuls")
-                    .AddTrigger(1f)
-                    .SetLayerCollisionMask(2113541)
+                Mystman13 Mii13 = new NPCBuilder<Mystman13>(base.Info)
+                    .SetName("Mystman13")
+                    .AddTrigger()
+                    .SetEnum("Mii13")
+                    .AddLooker()
+                    .SetMinMaxAudioDistance(10f, 150f)
+                    .SetPoster(AssetLoader.TextureFromMod(this, "NPC/Mystman13/PRI_Mii13.png"), "PRI_Mii13", "PRI_Mii13")
                     .Build();
-                SpriteRenderer pringulmessRenderer = PringulsMess.gameObject.AddComponent<SpriteRenderer>();
-                pringulmessRenderer.sprite = assetMan.Get<Sprite>("PringulsMess");
-                ObjectPringulsMess pringulmess = PringulsMess.gameObject.AddComponent<ObjectPringulsMess>();
-                pringulmess.audMan = pringulmess.gameObject.AddComponent<PropagatedAudioManager>();
-                pringulmess.audClean = BasePlugin.Instance.assetMan.Get<SoundObject>("GS_Cleaning");
+                Mii13.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Mii13_Idle");
+                assetMan.Add<NPC>("Mii13", Mii13);
 
-                ItemObject Pringuls = new ItemBuilder(Info)
+                ////////////////////////////////////////////////// ITEMS /////////////////////////////////////////////////////
+
+                ItemObject pringuls = new ItemBuilder(Info)
                     .SetNameAndDescription("Itm_Pringuls", "Desc_Pringuls")
                     .SetSprites(assetMan.Get<Sprite>("PringulsSmall"), assetMan.Get<Sprite>("PringulsLarge"))
                     .SetEnum("Pringuls")
-                    .SetShopPrice(480)
-                    .SetGeneratorCost(40)
+                    .SetShopPrice(140)
+                    .SetGeneratorCost(30)
                     .SetItemComponent<ITM_Pringuls>()
                     .SetMeta(ItemFlags.Persists, new string[] { "food" })
                     .Build();
-                ((ITM_Pringuls)Pringuls.item).dropSound = BasePlugin.Instance.assetMan.Get<SoundObject>("SFX_ChipsFall");
-                ((ITM_Pringuls)Pringuls.item).PringulMessObject = PringulsMess;
-                assetMan.Add<ItemObject>("Pringuls", Pringuls);
+                assetMan.Add<ItemObject>("Pringuls", pringuls);
+
+                ItemObject shit = new ItemBuilder(Info)
+                    .SetNameAndDescription("Itm_Shit", "Desc_Shit")
+                    .SetSprites(assetMan.Get<Sprite>("ShitSmall"), assetMan.Get<Sprite>("ShitLarge"))
+                    .SetEnum("Shit")
+                    .SetShopPrice(10)
+                    .SetGeneratorCost(70)
+                    .SetItemComponent<ITM_Shit>()
+                    .SetMeta(ItemFlags.Persists, new string[] { "food" })
+                    .Build();
+                ((ITM_Shit)shit.item).eatSound = (SoundObject)((ITM_ZestyBar)ItemMetaStorage.Instance.FindByEnum(Items.ZestyBar).value.item).ReflectionGetVariable("audEat");
+                ((ITM_Shit)shit.item).dieSound = assetMan.Get<SoundObject>("SFX_Die");
+                assetMan.Add<ItemObject>("Shit", shit);
 
                 ////////////////////////////////////////////////// POSTERS //////////////////////////////////////////////////
 
-                PosterObject PST_UglyKids = ObjectCreators.CreatePosterObject(assetMan.Get<Texture2D>("PST_UglyKids"), null);
+                PosterTextData[] TextNone = new PosterTextData[] { new PosterTextData() { } };
+
+                PosterTextData[] PST_UglyKidsTextData = new PosterTextData[] {
+                    new PosterTextData {
+                    textKey = "PST_UglyKids",
+                    font = BaldiFonts.BoldComicSans12.FontAsset(),
+                    fontSize = (int)BaldiFonts.BoldComicSans12.FontSize(),
+                    position = new IntVector2(46,129),
+                    size = new IntVector2(83,24),
+                    style = TMPro.FontStyles.Normal,
+                    color = Color.black,
+                    alignment = TMPro.TextAlignmentOptions.Center}
+                };
+
+                PosterObject PST_UglyKids = ObjectCreators.CreatePosterObject(assetMan.Get<Texture2D>("PST_UglyKids"), PST_UglyKidsTextData);
+                assetMan.Add<PosterObject>("PST_UglyKids", PST_UglyKids);
+
+                PosterTextData[] PST_BaldiSongTextData = new PosterTextData[] {
+                    new PosterTextData {
+                    textKey = "PST_BaldiSong1",
+                    font = BaldiFonts.ComicSans18.FontAsset(),
+                    fontSize = (int)BaldiFonts.ComicSans18.FontSize(),
+                    position = new IntVector2(52,175),
+                    size = new IntVector2(152,58),
+                    style = TMPro.FontStyles.Normal,
+                    color = Color.black,
+                    alignment = TMPro.TextAlignmentOptions.Center},
+                    new PosterTextData {
+                    textKey = "PST_BaldiSong2",
+                    font = BaldiFonts.ComicSans18.FontAsset(),
+                    fontSize = (int)BaldiFonts.ComicSans18.FontSize(),
+                    position = new IntVector2(52,23),
+                    size = new IntVector2(152,58),
+                    style = TMPro.FontStyles.Normal,
+                    color = Color.black,
+                    alignment = TMPro.TextAlignmentOptions.Center}
+                };
+
+                PosterObject PST_BaldiSong = ObjectCreators.CreatePosterObject(assetMan.Get<Texture2D>("PST_BaldiSong"), PST_BaldiSongTextData);
+                assetMan.Add<PosterObject>("PST_BaldiSong", PST_BaldiSong);
 
                 ////////////////////////////////////////////////// GENERATOR SETTINGS //////////////////////////////////////////////////
 
@@ -147,25 +233,63 @@ namespace Baldibasicpoop
                     foreach (CustomLevelObject customLevelObject in obj.GetCustomLevelObjects())
                     {
                         // NPCS
-                        obj.potentialNPCs.Add(new WeightedNPC
+                        if (level == "F1" || level == "END") {
+                            obj.forcedNpcs = obj.forcedNpcs.AddToArray(benz);
+                        }
+                        else if (level == "F2")
                         {
-                            weight = 999,
-                            selection = benz
-                        });
+                            obj.potentialNPCs.Add(new WeightedNPC
+                            {
+                                weight = 100,
+                                selection = Mii13
+                            });
+                        }
+
                         // POSTERS
+
                         customLevelObject.posters = customLevelObject.posters.AddToArray(new WeightedPosterObject
                         {
                             weight = 60,
                             selection = PST_UglyKids
                         });
+                        customLevelObject.posters = customLevelObject.posters.AddToArray(new WeightedPosterObject
+                        {
+                            weight = 20,
+                            selection = PST_BaldiSong
+                        });
+
+                        // ITEMS
+
+                        customLevelObject.potentialItems = customLevelObject.potentialItems.AddToArray(new WeightedItemObject
+                        {
+                            weight = 79,
+                            selection = pringuls
+                        });
+                        obj.shopItems = obj.shopItems.AddItem(new WeightedItemObject
+                        {
+                            selection = pringuls,
+                            weight = 79
+                        }).ToArray();
+
+                        customLevelObject.potentialItems = customLevelObject.potentialItems.AddToArray(new WeightedItemObject
+                        {
+                            weight = 15,
+                            selection = shit
+                        });
+                        obj.shopItems = obj.shopItems.AddItem(new WeightedItemObject
+                        {
+                            selection = shit,
+                            weight = 15
+                        }).ToArray();
                         // ROOMS
-                        //potentialBeanzRoom.Add(new WeightedRoomAsset()
-                        //{
-                        //    selection = beanroomasset,
-                        //    weight = 100
-                        //});
                     }
                 });
+
+                LoaderSupport.AddLoaderContent();
+                if (Chainloader.PluginInfos.ContainsKey("mtm101.rulerp.baldiplus.levelstudio"))
+                {
+                    EditorSupport.AddEditorContent();
+                }
 
                 ////////////////////////////////////////////////// LOCALIZATION //////////////////////////////////////////////////
 

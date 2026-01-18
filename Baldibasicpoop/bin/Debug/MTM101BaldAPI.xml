@@ -595,6 +595,36 @@
             <param name="plug"></param>
             <param name="e"></param>
         </member>
+        <member name="T:MTM101BaldAPI.BooleanHandshake">
+            <summary>
+            Represents a boolean value that can either "agree" to be compared with another, or forcefully make the return value itself.
+            </summary>
+        </member>
+        <member name="F:MTM101BaldAPI.BooleanHandshake.AlwaysFalse">
+            <summary>
+            This will always return false in a comparison, even if the other is AlwaysTrue.
+            </summary>
+        </member>
+        <member name="F:MTM101BaldAPI.BooleanHandshake.AlwaysTrue">
+            <summary>
+            This will always return true in a comparison, even if the other is FalseIfAgree.
+            </summary>
+        </member>
+        <member name="F:MTM101BaldAPI.BooleanHandshake.IfAgree">
+            <summary>
+            This is the flag that represents if a value is agreeing with the other one.
+            </summary>
+        </member>
+        <member name="F:MTM101BaldAPI.BooleanHandshake.FalseIfAgree">
+            <summary>
+            This will return false in a comparison if the other is TrueIfAgree or AlwaysFalse.
+            </summary>
+        </member>
+        <member name="F:MTM101BaldAPI.BooleanHandshake.TrueIfAgree">
+            <summary>
+            This will return true in a comparison if the other is TrueIfAgree or AlwaysTrue.
+            </summary>
+        </member>
         <member name="F:MTM101BaldAPI.Components.Animation.CustomAnimation`2.frames">
             <summary>
             The amount of frames in the animation
@@ -799,6 +829,14 @@
             Returns the sprite this sticker uses when in the inventory.
             </summary>
             <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MTM101BaldAPI.ExtendedStickerData.CanStackWith(StickerStateData,StickerStateData)">
+            <summary>
+            Returns true if this sticker should stack with another sticker.
+            </summary>
+            <param name="thisSticker"></param>
+            <param name="otherSticker"></param>
             <returns></returns>
         </member>
         <member name="M:MTM101BaldAPI.ExtendedStickerData.CanBeCovered(StickerStateData)">
@@ -1957,6 +1995,20 @@
             <summary>
             Marks this sticker as affecting the generator
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MTM101BaldAPI.ObjectCreation.StickerBuilder`1.SetTagsArray(System.String[])">
+            <summary>
+            Sets the metadata tags for this sticker
+            </summary>
+            <param name="tags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MTM101BaldAPI.ObjectCreation.StickerBuilder`1.SetTags(System.String[])">
+            <summary>
+            Sets the metadata tags for this sticker
+            </summary>
+            <param name="tag"></param>
             <returns></returns>
         </member>
         <member name="M:MTM101BaldAPI.ObjectCreators.CreateMapTileShader(UnityEngine.Texture2D)">
