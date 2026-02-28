@@ -23,15 +23,13 @@ using UnityEngine.UI;
 using PlusStudioLevelLoader;
 using PlusStudioLevelFormat;
 
-
 using Baldibasicpoop.CustomItems;
 using Baldibasicpoop.NPCS;
 using Baldibasicpoop.Editor;
 
 namespace Baldibasicpoop
 {
-
-    [BepInPlugin("baldicancerpoop", "Baldi Poop", "1.1.0")]
+    [BepInPlugin("baldicancerpoop", "Baldi Poop", "1.2.0")]
     
     [BepInDependency("mtm101.rulerp.baldiplus.levelstudio", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency("mtm101.rulerp.baldiplus.levelstudioloader", BepInDependency.DependencyFlags.HardDependency)]
@@ -60,10 +58,18 @@ namespace Baldibasicpoop
                 assetMan.Add<Texture2D>("BeanCeil", AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanCeiling.png"));
                 assetMan.Add<Texture2D>("BeanFloor", AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanCarpet.png"));
 
+
+
                 assetMan.Add<Sprite>("Benz_Idle", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "MrBen", "MrBen.png"), new Vector2(0.5f, 0.4f), 32));
                 assetMan.Add<Sprite>("Benz_Explod", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "MrBen", "MrBenExplodsisv.png"), new Vector2(0.5f, 0.4f), 32));
 
                 assetMan.Add<Sprite>("Mii13_Idle", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "Mystman13", "Mii13.png"), new Vector2(0.5f, 0.4f), 32));
+
+                assetMan.Add<Sprite>("DYL_Idle", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "BigDylan", "DYL_Idle.png"), new Vector2(0.5f, 0.4f), 48));
+                assetMan.Add<Sprite>("DYL_Stare", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "BigDylan", "DYL_Stare.png"), new Vector2(0.5f, 0.4f), 48));
+                assetMan.Add<Sprite>("DYL_yhejoseph", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "BigDylan", "JOS_Chase.png"), new Vector2(0.5f, 0.4f), 48));
+
+
 
                 assetMan.Add<Sprite>("PringulsLarge", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "Pringuls", "PringulsIcon_Large.png"), 50));
                 assetMan.Add<Sprite>("PringulsSmall", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "Pringuls", "PringulsIcon_Small.png"), 25));
@@ -71,14 +77,24 @@ namespace Baldibasicpoop
                 assetMan.Add<Sprite>("ShitLarge", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "Shit", "ShitIcon_Large.png"), 50));
                 assetMan.Add<Sprite>("ShitSmall", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "Shit", "ShitIcon_Small.png"), 25));
 
+
+
                 assetMan.Add<Sprite>("BeanPhoneSprite", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Objects", "Billboards", "MrBenPhone.png"), new Vector2(0.5f, 0), 24));
                 assetMan.Add<Sprite>("BeanLampSprite", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Objects", "Billboards", "MrBenLamp.png"), new Vector2(0.5f, 0), 24));
 
+
+
                 assetMan.Add<Texture2D>("PST_UglyKids", AssetLoader.TextureFromMod(this, Path.Combine("Posters", "PST_UglyKids.png")));
                 assetMan.Add<Texture2D>("PST_BaldiSong", AssetLoader.TextureFromMod(this, Path.Combine("Posters", "PST_BaldiSong.png")));
+                assetMan.Add<Texture2D>("PST_Chef", AssetLoader.TextureFromMod(this, Path.Combine("Posters", "PST_Chef.png")));
+                assetMan.Add<Texture2D>("PST_Depression", AssetLoader.TextureFromMod(this, Path.Combine("Posters", "PST_Depression.png")));
+                assetMan.Add<Texture2D>("PST_Wide", AssetLoader.TextureFromMod(this, Path.Combine("Posters", "PST_Wide.png")));
+
+
 
                 assetMan.Add<Sprite>("Editor_MrBenz", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_benz.png"), 1));
                 assetMan.Add<Sprite>("Editor_Mii13", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_mii13.png"), 1));
+                assetMan.Add<Sprite>("Editor_Dylan", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_dylan.png"), 1));
                 assetMan.Add<Sprite>("Editor_BeanPhone", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_beanphone.png"), 1));
                 assetMan.Add<Sprite>("Editor_BeanLamp", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_beanlamp.png"), 1));
                 assetMan.Add<Sprite>("Editor_BeanHouse", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "room_beanhouse.png"), 1));
@@ -93,6 +109,9 @@ namespace Baldibasicpoop
                 assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "BEN_Explod", SoundType.Effect, new Color(131f / 255f, 75f / 255f, 55f / 255f), -1f));
 
                 assetMan.Add<SoundObject>("Mii13_Hey", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "Mystman13", "Mii13_Hey.wav")), "Mii13_Hey", SoundType.Voice, new Color(51f / 255f, 59f / 255f, 67f / 255f), -1f));
+
+                assetMan.Add<SoundObject>("SFX_Wiplash", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "BigDylan", "SFX_Wiplash.wav")), "SFX_Wiplash", SoundType.Effect, Color.red, -1f));
+                assetMan.Add<SoundObject>("JOS_Screm", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "BigDylan", "JOS_Screm.wav")), "JOS_Screm", SoundType.Effect, Color.red, -1f));
 
                 ////////////////////////////////////////////////// OBJECTS //////////////////////////////////////////////////
 
@@ -152,10 +171,21 @@ namespace Baldibasicpoop
                     .SetEnum("Mii13")
                     .AddLooker()
                     .SetMinMaxAudioDistance(10f, 150f)
-                    .SetPoster(AssetLoader.TextureFromMod(this, "NPC/Mystman13/PRI_Mii13.png"), "PRI_Mii13", "PRI_Mii13")
+                    .SetPoster(AssetLoader.TextureFromMod(this, "NPC/Mystman13/PRI_Mii13.png"), "PRI_Mii131", "PRI_Mii132")
                     .Build();
                 Mii13.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Mii13_Idle");
                 assetMan.Add<NPC>("Mii13", Mii13);
+
+                BigDylan dylan = new NPCBuilder<BigDylan>(base.Info)
+                    .SetName("Big Dylan")
+                    .AddTrigger()
+                    .SetEnum("BigDylan")
+                    .AddLooker()
+                    .SetMinMaxAudioDistance(25f, 300f)
+                    .SetPoster(AssetLoader.TextureFromMod(this, "NPC/BigDylan/PRI_Dylan.png"), "PRI_Dylan1", "PRI_Dylan2")
+                    .Build();
+                dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Idle");
+                assetMan.Add<NPC>("BigDylan", dylan);
 
                 ////////////////////////////////////////////////// ITEMS /////////////////////////////////////////////////////
 
@@ -226,6 +256,27 @@ namespace Baldibasicpoop
                 PosterObject PST_BaldiSong = ObjectCreators.CreatePosterObject(assetMan.Get<Texture2D>("PST_BaldiSong"), PST_BaldiSongTextData);
                 assetMan.Add<PosterObject>("PST_BaldiSong", PST_BaldiSong);
 
+                PosterObject PST_Depression = ObjectCreators.CreatePosterObject(assetMan.Get<Texture2D>("PST_Depression"), TextNone);
+                assetMan.Add<PosterObject>("PST_Depression", PST_Depression);
+
+                PosterObject PST_Chef = ObjectCreators.CreatePosterObject(assetMan.Get<Texture2D>("PST_Chef"), TextNone);
+                assetMan.Add<PosterObject>("PST_Chef", PST_Chef);
+
+                PosterTextData[] PST_WideTextData = new PosterTextData[] {
+                    new PosterTextData {
+                    textKey = "PST_Wide",
+                    font = BaldiFonts.ComicSans18.FontAsset(),
+                    fontSize = (int)BaldiFonts.ComicSans18.FontSize(),
+                    position = new IntVector2(4,216),
+                    size = new IntVector2(248,36),
+                    style = TMPro.FontStyles.Normal,
+                    color = Color.black,
+                    alignment = TMPro.TextAlignmentOptions.Center}
+                };
+
+                PosterObject PST_Wide = ObjectCreators.CreatePosterObject(assetMan.Get<Texture2D>("PST_Wide"), PST_WideTextData);
+                assetMan.Add<PosterObject>("PST_Wide", PST_Wide);
+
                 ////////////////////////////////////////////////// GENERATOR SETTINGS //////////////////////////////////////////////////
 
                 GeneratorManagement.Register(this, GenerationModType.Finalizer, delegate (string level, int levelNum, SceneObject obj)
@@ -235,6 +286,7 @@ namespace Baldibasicpoop
                         // NPCS
                         if (level == "F1" || level == "END") {
                             obj.forcedNpcs = obj.forcedNpcs.AddToArray(benz);
+                            obj.forcedNpcs = obj.forcedNpcs.AddToArray(dylan);
                         }
                         else if (level == "F2")
                         {
@@ -256,6 +308,21 @@ namespace Baldibasicpoop
                         {
                             weight = 20,
                             selection = PST_BaldiSong
+                        });
+                        customLevelObject.posters = customLevelObject.posters.AddToArray(new WeightedPosterObject
+                        {
+                            weight = 10,
+                            selection = PST_Depression
+                        });
+                        customLevelObject.posters = customLevelObject.posters.AddToArray(new WeightedPosterObject
+                        {
+                            weight = 90,
+                            selection = PST_Chef
+                        });
+                        customLevelObject.posters = customLevelObject.posters.AddToArray(new WeightedPosterObject
+                        {
+                            weight = 100,
+                            selection = PST_Wide
                         });
 
                         // ITEMS

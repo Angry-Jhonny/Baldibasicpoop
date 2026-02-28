@@ -97,6 +97,7 @@
     <Compile Include="EditorSupport.cs" />
     <Compile Include="CustomItems\ITM_Shit.cs" />
     <Compile Include="CustomItems\ITM_Pringuls.cs" />
+    <Compile Include="NPCS\BigDylan.cs" />
     <Compile Include="Patches\MainMenuPatch.cs" />
     <Compile Include="NPCS\Mystman13.cs" />
     <Compile Include="NPCS\MisterBenz.cs" />
