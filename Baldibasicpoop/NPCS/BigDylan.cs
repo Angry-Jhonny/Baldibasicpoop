@@ -39,6 +39,26 @@ namespace Baldibasicpoop.NPCS
         public PropagatedAudioManager pam;
     }
 
+    internal class BigDylan_Dead : BigDylan_StateBase
+    {
+        public BigDylan_Dead(BigDylan dylan) : base(dylan)
+        {
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            base.ChangeNavigationState(new NavigationState_DoNothing(this.npc, 999));
+            dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Dead");
+            dylan.pam.audioDevice.Stop();
+            dylan.pam.FlushQueue(true);
+            dylan.pam.SetLoop(false);
+            dylan.pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("DYL_Death"));
+        }
+
+        public override void DestinationEmpty() => base.DestinationEmpty();
+    }
+
     internal class BigDylan_Chase : BigDylan_StateBase
     {
         public BigDylan_Chase(BigDylan dylan) : base(dylan)
@@ -48,8 +68,8 @@ namespace Baldibasicpoop.NPCS
         public override void Enter()
         {
             base.Enter();
-            dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_yhejoseph");
-            dylan.pam.QueueAudio(BasePlugin.Instance.assetMan.Get<SoundObject>("JOS_Screm"));
+            dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Chase");
+            dylan.pam.QueueAudio(BasePlugin.Instance.assetMan.Get<SoundObject>("DYL_Sing"));
             dylan.pam.SetLoop(true);
         }
 
@@ -93,17 +113,33 @@ namespace Baldibasicpoop.NPCS
         public override void Enter()
         {
             base.Enter();
+            delay = UnityEngine.Random.Range(15, 75);
             dylan.spriteRenderer[0].gameObject.SetActive(false);
-            dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Idle");
             base.ChangeNavigationState(new NavigationState_WanderRandom(this.npc, 128));
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            if (delay > 0f)
+            {
+                delay -= dylan.ec.NpcTimeScale * Time.deltaTime;
+            }
+            else
+            {
+                dylan.spriteRenderer[0].gameObject.SetActive(true);
+                dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Idle");
+                base.npc.behaviorStateMachine.ChangeState(new BigDylan_Wander(dylan));
+            }
         }
 
         public override void DestinationEmpty()
         {
             base.DestinationEmpty();
-            dylan.spriteRenderer[0].gameObject.SetActive(true);
-            base.npc.behaviorStateMachine.ChangeState(new BigDylan_Wander(dylan));
+            base.ChangeNavigationState(new NavigationState_WanderRandom(this.npc, 128));
         }
+
+        public float delay;
     }
 
     internal class BigDylan_Stare : BigDylan_StateBase
@@ -160,7 +196,18 @@ namespace Baldibasicpoop.NPCS
         public override void InPlayerSight(PlayerManager player)
         {
             base.InPlayerSight(player);
+            float distance = Vector3.Distance(player.transform.position, npc.transform.position);
             base.npc.behaviorStateMachine.ChangeState(new BigDylan_Stare(dylan));
+        }
+
+        public override void PlayerInSight(PlayerManager player)
+        {
+            base.PlayerSighted(player);
+            float distance = Vector3.Distance(player.transform.position, npc.transform.position);
+            if (distance < 60f)
+            {
+                base.npc.behaviorStateMachine.ChangeState(new BigDylan_Flee(dylan));
+            }
         }
     }
 }

@@ -28,6 +28,7 @@ namespace Baldibasicpoop.Editor
             LevelStudioPlugin.Instance.selectableTextures.Add("ConnorTexture");
             LevelStudioPlugin.Instance.selectableShopItems.Add("pringuls");
             LevelStudioPlugin.Instance.selectableShopItems.Add("shit");
+            LevelStudioPlugin.Instance.selectableShopItems.Add("smallphilip");
             EditorInterface.AddObjectVisualWithCustomCapsuleCollider("beanzphone", LevelLoaderPlugin.Instance.basicObjects["beanzphone"], 1, 1, 1, new Vector3(0,0.5f,0));
             EditorInterface.AddObjectVisualWithCustomCapsuleCollider("beanzlamp", LevelLoaderPlugin.Instance.basicObjects["beanzlamp"], 1, 2, 1, new Vector3(0, 1, 0));
             EditorInterface.AddObjectVisualWithCustomCapsuleCollider("connorball", LevelLoaderPlugin.Instance.basicObjects["connorball"], 4, 4, 1, new Vector3(0, 5, 0));
@@ -64,6 +65,7 @@ namespace Baldibasicpoop.Editor
 
             EditorInterfaceModes.AddToolToCategory(mode, "items", new ItemTool("pringuls"));
             EditorInterfaceModes.AddToolToCategory(mode, "items", new ItemTool("shit"));
+            EditorInterfaceModes.AddToolToCategory(mode, "items", new ItemTool("smallphilip"));
         }
     }
 
@@ -79,6 +81,7 @@ namespace Baldibasicpoop.Editor
 
             LevelLoaderPlugin.Instance.itemObjects.Add("pringuls", assetMan.Get<ItemObject>("Pringuls"));
             LevelLoaderPlugin.Instance.itemObjects.Add("shit", assetMan.Get<ItemObject>("Shit"));
+            LevelLoaderPlugin.Instance.itemObjects.Add("smallphilip", assetMan.Get<ItemObject>("SmallPhilip"));
 
             LevelLoaderPlugin.Instance.posterAliases.Add("pri_benz", assetMan.Get<NPC>("MrBenz").Poster);
             LevelLoaderPlugin.Instance.posterAliases.Add("pri_mii13", assetMan.Get<NPC>("Mii13").Poster);

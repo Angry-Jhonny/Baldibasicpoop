@@ -44,6 +44,8 @@ namespace Baldibasicpoop
 
         public static RoomCategory beanzRoomCat = EnumExtensions.ExtendEnum<RoomCategory>("BeanzRoom");
 
+        //public static Sticker StickerEnum = EnumExtensions.ExtendEnum<Sticker>("Sticker");
+
         private IEnumerator RegisterImportant()
         {
             yield return 3;
@@ -69,7 +71,8 @@ namespace Baldibasicpoop
 
                 assetMan.Add<Sprite>("DYL_Idle", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "BigDylan", "DYL_Idle.png"), new Vector2(0.5f, 0.4f), 48));
                 assetMan.Add<Sprite>("DYL_Stare", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "BigDylan", "DYL_Stare.png"), new Vector2(0.5f, 0.4f), 48));
-                assetMan.Add<Sprite>("DYL_yhejoseph", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "BigDylan", "JOS_Chase.png"), new Vector2(0.5f, 0.4f), 48));
+                assetMan.Add<Sprite>("DYL_Chase", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "BigDylan", "DYL_Chase.png"), new Vector2(0.5f, 0.4f), 48));
+                assetMan.Add<Sprite>("DYL_Dead", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "NPC", "BigDylan", "DYL_Dead.png"), new Vector2(0.5f, 0.4f), 48));
 
 
 
@@ -78,6 +81,9 @@ namespace Baldibasicpoop
 
                 assetMan.Add<Sprite>("ShitLarge", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "Shit", "ShitIcon_Large.png"), 50));
                 assetMan.Add<Sprite>("ShitSmall", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "Shit", "ShitIcon_Small.png"), 25));
+
+                assetMan.Add<Sprite>("PhilipLarge", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "SmallPhilip", "PhilipIcon_Large.png"), 50));
+                assetMan.Add<Sprite>("PhilipSmall", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Item", "SmallPhilip", "PhilipIcon_Small.png"), 25));
 
 
 
@@ -94,14 +100,14 @@ namespace Baldibasicpoop
 
 
 
-                assetMan.Add<Sprite>("Editor_MrBenz", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_benz.png"), 1));
-                assetMan.Add<Sprite>("Editor_Mii13", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_mii13.png"), 1));
-                assetMan.Add<Sprite>("Editor_Dylan", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_dylan.png"), 1));
-                assetMan.Add<Sprite>("Editor_BeanPhone", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_beanphone.png"), 1));
-                assetMan.Add<Sprite>("Editor_BeanLamp", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_beanlamp.png"), 1));
-                assetMan.Add<Sprite>("Editor_ConnorBall", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_connorball.png"), 1));
-                assetMan.Add<Sprite>("Editor_BeanHouse", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "room_beanhouse.png"), 1));
-                assetMan.Add<Sprite>("Editor_Connor", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "room_connor.png"), 1));
+                assetMan.Add<Sprite>("Editor_MrBenz", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_benz.png"), 8));
+                assetMan.Add<Sprite>("Editor_Mii13", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_mii13.png"), 8));
+                assetMan.Add<Sprite>("Editor_Dylan", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_dylan.png"), 8));
+                assetMan.Add<Sprite>("Editor_BeanPhone", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_beanphone.png"), 8));
+                assetMan.Add<Sprite>("Editor_BeanLamp", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_beanlamp.png"), 8));
+                assetMan.Add<Sprite>("Editor_ConnorBall", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_connorball.png"), 8));
+                assetMan.Add<Sprite>("Editor_BeanHouse", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "room_beanhouse.png"), 8));
+                assetMan.Add<Sprite>("Editor_Connor", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "room_connor.png"), 8));
 
                 // SoundObject //
 
@@ -115,18 +121,21 @@ namespace Baldibasicpoop
                 assetMan.Add<SoundObject>("Mii13_Hey", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("NPC", "Mystman13", "Mii13_Hey.wav")), "Mii13_Hey", SoundType.Voice, new Color(51f / 255f, 59f / 255f, 67f / 255f), -1f));
 
                 assetMan.Add<SoundObject>("SFX_Wiplash", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("NPC", "BigDylan", "SFX_Wiplash.wav")), "SFX_Wiplash", SoundType.Effect, Color.red, -1f));
-                assetMan.Add<SoundObject>("JOS_Screm", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("NPC", "BigDylan", "JOS_Screm.wav")), "JOS_Screm", SoundType.Effect, Color.red, -1f));
+                assetMan.Add<SoundObject>("DYL_Sing", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("NPC", "BigDylan", "DYL_Sing.wav")), "DYL_Sing", SoundType.Effect, Color.red, -1f));
+                assetMan.Add<SoundObject>("DYL_Death", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("NPC", "BigDylan", "DYL_Death.wav")), "DYL_Death", SoundType.Effect, Color.red, -1f));
 
                 ////////////////////////////////////////////////// OBJECTS //////////////////////////////////////////////////
 
                 GameObject BeanzPhoneBase = GameObject.Instantiate<GameObject>(Resources.FindObjectsOfTypeAll<EnvironmentObject>().First(x => x.name == "Plant" && x.GetInstanceID() >= 0 && x.transform.parent == null).gameObject, MTM101BaldiDevAPI.prefabTransform);
                 BeanzPhoneBase.GetComponentInChildren<SpriteRenderer>().sprite = assetMan.Get<Sprite>("BeanPhoneSprite");
+                BeanzPhoneBase.transform.position = new Vector3(0, 4f, 0);
                 BeanzPhoneBase.name = "BeanzPhone";
                 assetMan.Add<GameObject>("BeanzPhone", BeanzPhoneBase);
                 LevelLoaderPlugin.Instance.basicObjects.Add("beanzphone", assetMan.Get<GameObject>("BeanzPhone"));
 
                 GameObject BeanzLampBase = GameObject.Instantiate<GameObject>(Resources.FindObjectsOfTypeAll<EnvironmentObject>().First(x => x.name == "Plant" && x.GetInstanceID() >= 0 && x.transform.parent == null).gameObject, MTM101BaldiDevAPI.prefabTransform);
                 BeanzLampBase.GetComponentInChildren<SpriteRenderer>().sprite = assetMan.Get<Sprite>("BeanLampSprite");
+                BeanzLampBase.transform.position = new Vector3(0, 4f, 0);
                 BeanzLampBase.name = "BeanzLamp";
                 assetMan.Add<GameObject>("BeanzLamp", BeanzLampBase);
                 LevelLoaderPlugin.Instance.basicObjects.Add("beanzlamp", assetMan.Get<GameObject>("BeanzLamp"));
@@ -142,8 +151,6 @@ namespace Baldibasicpoop
                 ConnorBallMesh.transform.localScale = Vector3.one * 8;
                 ConnorBallMesh.transform.position = new Vector3(0, 5, 0);
                 ConnorBallMesh.AddComponent<SphereCollider>().radius = 0.8f;
-                //Spinner spinner = ConnorBall.AddComponent<Spinner>();
-                //spinner.ReflectionSetVariable("target", ConnorBallMesh.transform);
                 assetMan.Add<GameObject>("ConnorBall", ConnorBall);
                 LevelLoaderPlugin.Instance.basicObjects.Add("connorball", assetMan.Get<GameObject>("ConnorBall"));
 
@@ -216,6 +223,14 @@ namespace Baldibasicpoop
                 dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Idle");
                 assetMan.Add<NPC>("BigDylan", dylan);
 
+                ////////////////////////////////////////////////// STICKERS /////////////////////////////////////////////////////
+
+                //new StickerBuilder<StickerData>(Info)
+                //    .SetEnum(StickerEnum)
+                //    .SetDuplicateOddsMultiplier(0.5f)
+                //    .SetSprite(assetMan.Get<Sprite>("_Sticker"))
+                //    .Build();
+
                 ////////////////////////////////////////////////// ITEMS /////////////////////////////////////////////////////
 
                 ItemObject pringuls = new ItemBuilder(Info)
@@ -236,11 +251,22 @@ namespace Baldibasicpoop
                     .SetShopPrice(10)
                     .SetGeneratorCost(70)
                     .SetItemComponent<ITM_Shit>()
-                    .SetMeta(ItemFlags.Persists, new string[] { "food" })
+                    .SetMeta(ItemFlags.Persists, new string[] { "food", "trash" })
                     .Build();
                 ((ITM_Shit)shit.item).eatSound = (SoundObject)((ITM_ZestyBar)ItemMetaStorage.Instance.FindByEnum(Items.ZestyBar).value.item).ReflectionGetVariable("audEat");
                 ((ITM_Shit)shit.item).dieSound = assetMan.Get<SoundObject>("SFX_Die");
                 assetMan.Add<ItemObject>("Shit", shit);
+
+                ItemObject philip = new ItemBuilder(Info)
+                    .SetNameAndDescription("Itm_Philip", "Desc_Philip")
+                    .SetSprites(assetMan.Get<Sprite>("PhilipSmall"), assetMan.Get<Sprite>("PhilipLarge"))
+                    .SetEnum("SmallPhilip")
+                    .SetShopPrice(160)
+                    .SetGeneratorCost(79)
+                    .SetItemComponent<ITM_SmallPhilip>()
+                    .SetMeta(ItemFlags.Persists, new string[] { "tool" })
+                    .Build();
+                assetMan.Add<ItemObject>("SmallPhilip", philip);
 
                 ////////////////////////////////////////////////// POSTERS //////////////////////////////////////////////////
 

@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePlugin.cs" />
+    <Compile Include="CustomItems\ITM_SmallPhilip.cs" />
     <Compile Include="EditorSupport.cs" />
     <Compile Include="CustomItems\ITM_Shit.cs" />
     <Compile Include="CustomItems\ITM_Pringuls.cs" />
