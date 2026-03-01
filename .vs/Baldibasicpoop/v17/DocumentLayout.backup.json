@@ -1,0 +1,122 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\baldibasicpoop\\baseplugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|solutionrelative:baldibasicpoop\\baseplugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|c:\\users\\thumbly\\desktop\\projects\\baldibasicpoop\\baldibasicpoop\\editorsupport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|solutionrelative:baldibasicpoop\\editorsupport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|c:\\users\\thumbly\\desktop\\projects\\baldibasicpoop\\baldibasicpoop\\materialmaker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|solutionrelative:baldibasicpoop\\materialmaker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\baldibasicpoop\\npcs\\misterbenz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|solutionrelative:baldibasicpoop\\npcs\\misterbenz.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\baldibasicpoop\\npcs\\mystman13.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|solutionrelative:baldibasicpoop\\npcs\\mystman13.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|c:\\users\\thumbly\\desktop\\projects\\baldibasicpoop\\baldibasicpoop\\npcs\\bigdylan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7191D9DE-4846-4B14-804C-FFB0F5A85491}|Baldibasicpoop\\Baldibasicpoop.csproj|solutionrelative:baldibasicpoop\\npcs\\bigdylan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MaterialMaker.cs",
+              "DocumentMoniker": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\MaterialMaker.cs",
+              "RelativeDocumentMoniker": "Baldibasicpoop\\MaterialMaker.cs",
+              "ToolTip": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\MaterialMaker.cs",
+              "RelativeToolTip": "Baldibasicpoop\\MaterialMaker.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBQAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-01T00:06:56.875Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "EditorSupport.cs",
+              "DocumentMoniker": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\EditorSupport.cs",
+              "RelativeDocumentMoniker": "Baldibasicpoop\\EditorSupport.cs",
+              "ToolTip": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\EditorSupport.cs",
+              "RelativeToolTip": "Baldibasicpoop\\EditorSupport.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAADwvyAAAACDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T23:16:38.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Mystman13.cs",
+              "DocumentMoniker": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\NPCS\\Mystman13.cs",
+              "RelativeDocumentMoniker": "Baldibasicpoop\\NPCS\\Mystman13.cs",
+              "ToolTip": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\NPCS\\Mystman13.cs",
+              "RelativeToolTip": "Baldibasicpoop\\NPCS\\Mystman13.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALIAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T21:54:14.28Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BigDylan.cs",
+              "DocumentMoniker": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\NPCS\\BigDylan.cs",
+              "RelativeDocumentMoniker": "Baldibasicpoop\\NPCS\\BigDylan.cs",
+              "ToolTip": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\NPCS\\BigDylan.cs",
+              "RelativeToolTip": "Baldibasicpoop\\NPCS\\BigDylan.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAA6wC8AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T21:37:09.132Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MisterBenz.cs",
+              "DocumentMoniker": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\NPCS\\MisterBenz.cs",
+              "RelativeDocumentMoniker": "Baldibasicpoop\\NPCS\\MisterBenz.cs",
+              "ToolTip": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\NPCS\\MisterBenz.cs",
+              "RelativeToolTip": "Baldibasicpoop\\NPCS\\MisterBenz.cs",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAAwGwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T21:32:22.223Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BasePlugin.cs",
+              "DocumentMoniker": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\BasePlugin.cs",
+              "RelativeDocumentMoniker": "Baldibasicpoop\\BasePlugin.cs",
+              "ToolTip": "C:\\Users\\Thumbly\\Desktop\\Projects\\Baldibasicpoop\\Baldibasicpoop\\BasePlugin.cs",
+              "RelativeToolTip": "Baldibasicpoop\\BasePlugin.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAowI8AAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-28T21:03:57.197Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

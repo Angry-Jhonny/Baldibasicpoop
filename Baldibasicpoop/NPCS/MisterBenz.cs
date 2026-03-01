@@ -24,12 +24,12 @@ namespace Baldibasicpoop.NPCS
             behaviorStateMachine.ChangeState(new MisterBenz_Wander(this));
             base.Navigator.SetSpeed(wanderSpeed);
             base.Navigator.maxSpeed = wanderSpeed;
-            spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Idle"); // collects the sprite inside the assetmanager on the plugin
+            spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Idle");
             pam = base.GetComponent<PropagatedAudioManager>();
 		
         }
 
-        public void Explode(Collider other) // just added this cuz your npc will explode for s
+        public void Explode(Collider other)
         {
             if (!collided)
             {
@@ -73,7 +73,7 @@ namespace Baldibasicpoop.NPCS
         }
 
         public float wanderSpeed = 10f;
-        public float chaseSpeed = 18f; // i added this if your npc chases the player
+        public float chaseSpeed = 18f;
 
         public float explosionSpeed = 10f;
 
@@ -115,6 +115,5 @@ namespace Baldibasicpoop.NPCS
                 benz.Explode(other);
             }
         }
-        //removed method playersaw cuz its redundant
     }
 }

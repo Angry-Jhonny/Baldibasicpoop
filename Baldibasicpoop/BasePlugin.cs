@@ -1,4 +1,7 @@
-﻿using BepInEx;
+﻿using Baldibasicpoop.CustomItems;
+using Baldibasicpoop.Editor;
+using Baldibasicpoop.NPCS;
+using BepInEx;
 using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using HarmonyLib;
@@ -12,6 +15,8 @@ using MTM101BaldAPI.Reflection;
 using MTM101BaldAPI.Registers;
 using MTM101BaldAPI.SaveSystem;
 using MTM101BaldAPI.UI;
+using PlusStudioLevelFormat;
+using PlusStudioLevelLoader;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,12 +25,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using PlusStudioLevelLoader;
-using PlusStudioLevelFormat;
-
-using Baldibasicpoop.CustomItems;
-using Baldibasicpoop.NPCS;
-using Baldibasicpoop.Editor;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Baldibasicpoop
 {
@@ -40,6 +40,7 @@ namespace Baldibasicpoop
         public static BasePlugin Instance { get; internal set; }
 
         public AssetManager assetMan = new AssetManager();
+        public MaterialMaker matMaker = new MaterialMaker();
 
         public static RoomCategory beanzRoomCat = EnumExtensions.ExtendEnum<RoomCategory>("BeanzRoom");
 
@@ -57,6 +58,7 @@ namespace Baldibasicpoop
                 assetMan.Add<Texture2D>("BeanWall", AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanWall.png"));
                 assetMan.Add<Texture2D>("BeanCeil", AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanCeiling.png"));
                 assetMan.Add<Texture2D>("BeanFloor", AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanCarpet.png"));
+                assetMan.Add<Texture2D>("Connor", AssetLoader.TextureFromMod(this, "Rooms", "NonCanonConnor", "NonCanonConnor.png"));
 
 
 
@@ -97,21 +99,23 @@ namespace Baldibasicpoop
                 assetMan.Add<Sprite>("Editor_Dylan", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "npc_dylan.png"), 1));
                 assetMan.Add<Sprite>("Editor_BeanPhone", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_beanphone.png"), 1));
                 assetMan.Add<Sprite>("Editor_BeanLamp", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_beanlamp.png"), 1));
+                assetMan.Add<Sprite>("Editor_ConnorBall", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "object_connorball.png"), 1));
                 assetMan.Add<Sprite>("Editor_BeanHouse", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "room_beanhouse.png"), 1));
+                assetMan.Add<Sprite>("Editor_Connor", AssetLoader.SpriteFromTexture2D(AssetLoader.TextureFromMod(this, "Editor", "room_connor.png"), 1));
 
                 // SoundObject //
 
-                assetMan.Add<SoundObject>("SFX_ChipsFall", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("Item", "Pringuls", "SFX_ChipsFall.wav")), "SFX_ChipsFall", SoundType.Effect, Color.white, -1f));
-                assetMan.Add<SoundObject>("SFX_Die", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("Item", "Shit", "SFX_Die.wav")), "SFX_Die", SoundType.Voice, Color.white, -1f));
+                assetMan.Add<SoundObject>("SFX_ChipsFall", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("Item", "Pringuls", "SFX_ChipsFall.wav")), "SFX_ChipsFall", SoundType.Effect, Color.white, -1f));
+                assetMan.Add<SoundObject>("SFX_Die", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("Item", "Shit", "SFX_Die.wav")), "SFX_Die", SoundType.Voice, Color.white, -1f));
 
-                assetMan.Add<SoundObject>("GS_Cleaning", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "GottaSweep", "GS_Cleaning.wav")), "GS_Cleaning", SoundType.Effect, Color.green, -1f));
+                assetMan.Add<SoundObject>("GS_Cleaning", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("NPC", "GottaSweep", "GS_Cleaning.wav")), "GS_Cleaning", SoundType.Effect, Color.green, -1f));
 
-                assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "BEN_Explod", SoundType.Effect, new Color(131f / 255f, 75f / 255f, 55f / 255f), -1f));
+                assetMan.Add<SoundObject>("BEN_Explod", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("NPC", "MrBen", "BEN_Explod.wav")), "BEN_Explod", SoundType.Effect, new Color(131f / 255f, 75f / 255f, 55f / 255f), -1f));
 
-                assetMan.Add<SoundObject>("Mii13_Hey", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "Mystman13", "Mii13_Hey.wav")), "Mii13_Hey", SoundType.Voice, new Color(51f / 255f, 59f / 255f, 67f / 255f), -1f));
+                assetMan.Add<SoundObject>("Mii13_Hey", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("NPC", "Mystman13", "Mii13_Hey.wav")), "Mii13_Hey", SoundType.Voice, new Color(51f / 255f, 59f / 255f, 67f / 255f), -1f));
 
-                assetMan.Add<SoundObject>("SFX_Wiplash", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "BigDylan", "SFX_Wiplash.wav")), "SFX_Wiplash", SoundType.Effect, Color.red, -1f));
-                assetMan.Add<SoundObject>("JOS_Screm", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(BasePlugin.Instance, Path.Combine("NPC", "BigDylan", "JOS_Screm.wav")), "JOS_Screm", SoundType.Effect, Color.red, -1f));
+                assetMan.Add<SoundObject>("SFX_Wiplash", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("NPC", "BigDylan", "SFX_Wiplash.wav")), "SFX_Wiplash", SoundType.Effect, Color.red, -1f));
+                assetMan.Add<SoundObject>("JOS_Screm", ObjectCreators.CreateSoundObject(AssetLoader.AudioClipFromMod(this, Path.Combine("NPC", "BigDylan", "JOS_Screm.wav")), "JOS_Screm", SoundType.Effect, Color.red, -1f));
 
                 ////////////////////////////////////////////////// OBJECTS //////////////////////////////////////////////////
 
@@ -127,7 +131,24 @@ namespace Baldibasicpoop
                 assetMan.Add<GameObject>("BeanzLamp", BeanzLampBase);
                 LevelLoaderPlugin.Instance.basicObjects.Add("beanzlamp", assetMan.Get<GameObject>("BeanzLamp"));
 
-                ////////////////////////////////////////////////// ROOMS //////////////////////////////////////////////////
+                GameObject ConnorBall = new GameObject("ConnorBall");
+                ConnorBall.transform.SetParent(MTM101BaldiDevAPI.prefabTransform);
+                GameObject ConnorBallMesh = new GameObject("ConnorBallMesh");
+                ConnorBallMesh.transform.SetParent(ConnorBall.transform);
+                ConnorBallMesh.AddComponent<MeshFilter>().mesh = Resources.FindObjectsOfTypeAll<Mesh>().First(x => x.name == "Sphere" && x.GetInstanceID() >= 0);
+                MeshRenderer renderer = ConnorBallMesh.AddComponent<MeshRenderer>();
+                renderer.material = matMaker.MakeMaterial(assetMan, "Connor");
+                renderer.material.mainTexture = assetMan.Get<Texture2D>("Connor");
+                ConnorBallMesh.transform.localScale = Vector3.one * 8;
+                ConnorBallMesh.transform.position = new Vector3(0, 5, 0);
+                ConnorBallMesh.AddComponent<SphereCollider>().radius = 0.8f;
+                //Spinner spinner = ConnorBall.AddComponent<Spinner>();
+                //spinner.ReflectionSetVariable("target", ConnorBallMesh.transform);
+                assetMan.Add<GameObject>("ConnorBall", ConnorBall);
+                LevelLoaderPlugin.Instance.basicObjects.Add("connorball", assetMan.Get<GameObject>("ConnorBall"));
+
+
+                ////////////////////////////////////////////////// ROOMS ////////////////////////////////////////////////////
 
                 assetMan.Add<StandardDoorMats>("BeanzDoorMats", ObjectCreators.CreateDoorDataObject("BeanDoor", AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanDoor_Open.png"), AssetLoader.TextureFromMod(this, "Rooms", "BeanzHouse", "BeanDoor_Closed.png")));
                 LevelLoaderPlugin.Instance.roomSettings.Add("beanHouse", new RoomSettings(BasePlugin.beanzRoomCat, RoomType.Room, new Color(131f / 255f, 75f / 255f, 55f / 255f), assetMan.Get<StandardDoorMats>("BeanzDoorMats"), null));
@@ -149,6 +170,12 @@ namespace Baldibasicpoop
                     weight = 999999999
                 });
 
+
+
+                assetMan.Add<StandardDoorMats>("ConnorDoorMats", ObjectCreators.CreateDoorDataObject("ConnorDoor", AssetLoader.TextureFromMod(this, "Rooms", "NonCanonConnor", "Connor_Open.png"), AssetLoader.TextureFromMod(this, "Rooms", "NonCanonConnor", "Connor_Closed.png")));
+                LevelLoaderPlugin.Instance.roomSettings.Add("connorRoom", new RoomSettings(BasePlugin.beanzRoomCat, RoomType.Room, Color.white, assetMan.Get<StandardDoorMats>("ConnorDoorMats"), null));
+                LevelLoaderPlugin.Instance.roomTextureAliases.Add("ConnorTexture", assetMan.Get<Texture2D>("Connor"));
+
                 ////////////////////////////////////////////////// NPC'S //////////////////////////////////////////////////
 
                 MisterBenz benz = new NPCBuilder<MisterBenz>(base.Info)
@@ -165,6 +192,7 @@ namespace Baldibasicpoop
                 benz.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Idle");
                 assetMan.Add<NPC>("MrBenz", benz);
 
+
                 Mystman13 Mii13 = new NPCBuilder<Mystman13>(base.Info)
                     .SetName("Mystman13")
                     .AddTrigger()
@@ -175,6 +203,7 @@ namespace Baldibasicpoop
                     .Build();
                 Mii13.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Mii13_Idle");
                 assetMan.Add<NPC>("Mii13", Mii13);
+
 
                 BigDylan dylan = new NPCBuilder<BigDylan>(base.Info)
                     .SetName("Big Dylan")

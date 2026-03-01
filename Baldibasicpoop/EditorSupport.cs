@@ -25,13 +25,16 @@ namespace Baldibasicpoop.Editor
             LevelStudioPlugin.Instance.selectableTextures.Add("BeanzFloor");
             LevelStudioPlugin.Instance.selectableTextures.Add("BeanzWall");
             LevelStudioPlugin.Instance.selectableTextures.Add("BeanzCeil");
+            LevelStudioPlugin.Instance.selectableTextures.Add("ConnorTexture");
             LevelStudioPlugin.Instance.selectableShopItems.Add("pringuls");
             LevelStudioPlugin.Instance.selectableShopItems.Add("shit");
             EditorInterface.AddObjectVisualWithCustomCapsuleCollider("beanzphone", LevelLoaderPlugin.Instance.basicObjects["beanzphone"], 1, 1, 1, new Vector3(0,0.5f,0));
             EditorInterface.AddObjectVisualWithCustomCapsuleCollider("beanzlamp", LevelLoaderPlugin.Instance.basicObjects["beanzlamp"], 1, 2, 1, new Vector3(0, 1, 0));
+            EditorInterface.AddObjectVisualWithCustomCapsuleCollider("connorball", LevelLoaderPlugin.Instance.basicObjects["connorball"], 4, 4, 1, new Vector3(0, 5, 0));
 
             EditorInterfaceModes.AddModeCallback(AddContentToMode);
             LevelStudioPlugin.Instance.defaultRoomTextures.Add("beanHouse", new TextureContainer("BeanzFloor", "BeanzWall", "BeanzCeil"));
+            LevelStudioPlugin.Instance.defaultRoomTextures.Add("connorRoom", new TextureContainer("ConnorTexture", "ConnorTexture", "ConnorTexture"));
         }
 
         public static void AddContentToMode(EditorMode mode, bool vanillaCompliant)
@@ -39,6 +42,7 @@ namespace Baldibasicpoop.Editor
             AssetManager assetMan = BasePlugin.Instance.assetMan;
             // by default, AddToolToCategory doesnt create the category if it doesn't exist, so if any of these dont exist in the mode we are editing, this will do nothing.
             EditorInterfaceModes.AddToolToCategory(mode, "rooms", new RoomTool("beanHouse", assetMan.Get<Sprite>("Editor_BeanHouse")));
+            EditorInterfaceModes.AddToolToCategory(mode, "rooms", new RoomTool("connorRoom", assetMan.Get<Sprite>("Editor_Connor")));
 
             EditorInterfaceModes.AddToolToCategory(mode, "posters", new PosterTool("pri_benz"));
             EditorInterfaceModes.AddToolToCategory(mode, "posters", new PosterTool("pri_mii13"));
@@ -56,6 +60,7 @@ namespace Baldibasicpoop.Editor
 
             EditorInterfaceModes.AddToolToCategory(mode, "objects", new ObjectToolNoRotation("beanzphone", assetMan.Get<Sprite>("Editor_BeanPhone")));
             EditorInterfaceModes.AddToolToCategory(mode, "objects", new ObjectToolNoRotation("beanzlamp", assetMan.Get<Sprite>("Editor_BeanLamp")));
+            EditorInterfaceModes.AddToolToCategory(mode, "objects", new ObjectToolNoRotation("connorball", assetMan.Get<Sprite>("Editor_ConnorBall")));
 
             EditorInterfaceModes.AddToolToCategory(mode, "items", new ItemTool("pringuls"));
             EditorInterfaceModes.AddToolToCategory(mode, "items", new ItemTool("shit"));

@@ -79,10 +79,12 @@ namespace Baldibasicpoop.NPCS
 
         public string[] URL = new string[]
         {
-            "dqPqr545gQQ",
-            "YQLifO7McNo",
-            "WyktoNopPs0",
-            "xZ8E76m_Y-M",
+            "HO5s5NrSWbU", // the promo video <3
+            "dqPqr545gQQ", // episode 1
+            "YQLifO7McNo", // episode 2
+            "WyktoNopPs0", // episode 3
+            "xZ8E76m_Y-M", // episode 4
+            "lNfM_Aws5ZA", // episode 5
         };
 
         public float speedMultiplier = 1f;

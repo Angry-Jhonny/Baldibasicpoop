@@ -1,7 +1,8 @@
-﻿using System;
+﻿using MTM101BaldAPI.Reflection;
+using Rewired;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using MTM101BaldAPI.Reflection;
 using UnityEngine;
 
 namespace Baldibasicpoop.NPCS
@@ -24,68 +25,118 @@ namespace Baldibasicpoop.NPCS
             behaviorStateMachine.ChangeState(new BigDylan_Wander(this));
             base.Navigator.SetSpeed(wanderSpeed);
             base.Navigator.maxSpeed = wanderSpeed;
-            spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Idle"); // collects the sprite inside the assetmanager on the plugin
+            spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Idle");
             pam = base.GetComponent<PropagatedAudioManager>();
         }
 
-        public void Explode(Collider other) // just added this cuz your npc will explode for s
-        {
-            if (!collided)
-            {
-                timeToDisappear = 5f;
-                pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("SFX_Wiplash"));
-                collidedGuy = other;
-                delay = 0.5f;
-                collided = true;
-            }
-        }
-
-        private void LateUpdate()
-        {
-            if (collided)
-            {
-                if (timeToDisappear > 0f)
-                {
-                    timeToDisappear -= ec.NpcTimeScale * Time.deltaTime;
-                }
-                else
-                {
-                    spriteRenderer[0].gameObject.SetActive(false);
-                }
-                if (delay > 0f)
-                {
-                    delay -= ec.NpcTimeScale * Time.deltaTime;
-                }
-                else
-                {
-                    if (exploded == false)
-                    {
-                        exploded = true;
-                        spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_yhejoseph");
-                        pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("JOS_Screm"));
-                        var offset = (collidedGuy.transform.position - transform.position).normalized;
-                        collidedGuy.GetComponent<Entity>().AddForce(new Force(offset, explosionSpeed * 1.9f, -explosionSpeed));
-                    }
-                }
-                Navigator.Entity.SetInteractionState(false);
-            }
-
-        }
-
         public float wanderSpeed = 10f;
-        public float chaseSpeed = 18f; // i added this if your npc chases the player
+        public float chaseSpeed = 18f;
 
-        public float explosionSpeed = 10f;
-
-        public float delay = 0;
-
-        public bool collided;
-        public bool exploded;
         public Collider collidedGuy;
         public float timeToDisappear;
 
         [SerializeField]
         public PropagatedAudioManager pam;
+    }
+
+    internal class BigDylan_Chase : BigDylan_StateBase
+    {
+        public BigDylan_Chase(BigDylan dylan) : base(dylan)
+        {
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_yhejoseph");
+            dylan.pam.QueueAudio(BasePlugin.Instance.assetMan.Get<SoundObject>("JOS_Screm"));
+            dylan.pam.SetLoop(true);
+        }
+
+        public override void DestinationEmpty()
+        {
+            base.DestinationEmpty();
+            Flee();
+        }
+
+        public override void PlayerInSight(PlayerManager player)
+        {
+            base.PlayerInSight(player);
+            base.ChangeNavigationState(new NavigationState_TargetPlayer(this.npc, 128, player.transform.position));
+        }
+
+        private void Flee()
+        {
+            dylan.pam.audioDevice.Stop();
+            dylan.pam.FlushQueue(true);
+            dylan.pam.SetLoop(false);
+            base.npc.behaviorStateMachine.ChangeState(new BigDylan_Flee(dylan));
+        }
+
+        public override void OnStateTriggerStay(Collider other, bool validCollision)
+        {
+            base.OnStateTriggerStay(other, validCollision);
+            Entity component = other.GetComponent<Entity>();
+            if (component != null && (component.gameObject.layer == LayerMask.NameToLayer("Player")))
+            {
+                Flee();
+            }
+        }
+    }
+
+    internal class BigDylan_Flee : BigDylan_StateBase
+    {
+        public BigDylan_Flee(BigDylan dylan) : base(dylan)
+        {
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            dylan.spriteRenderer[0].gameObject.SetActive(false);
+            dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Idle");
+            base.ChangeNavigationState(new NavigationState_WanderRandom(this.npc, 128));
+        }
+
+        public override void DestinationEmpty()
+        {
+            base.DestinationEmpty();
+            dylan.spriteRenderer[0].gameObject.SetActive(true);
+            base.npc.behaviorStateMachine.ChangeState(new BigDylan_Wander(dylan));
+        }
+    }
+
+    internal class BigDylan_Stare : BigDylan_StateBase
+    {
+        public BigDylan_Stare(BigDylan dylan) : base(dylan)
+        {
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            base.ChangeNavigationState(new NavigationState_DoNothing(this.npc, 999));
+            dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Stare");
+            dylan.pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("SFX_Wiplash"));
+        }
+
+        public override void DestinationEmpty() => base.DestinationEmpty();
+
+        public override void PlayerLost(PlayerManager player)
+        {
+            base.PlayerLost(player);
+            base.npc.behaviorStateMachine.ChangeState(new BigDylan_Flee(dylan));
+        }
+
+        public override void InPlayerSight(PlayerManager player)
+        {
+            base.InPlayerSight(player);
+            float distance = Vector3.Distance(player.transform.position, npc.transform.position);
+            if (distance < 40f)
+            {
+                base.npc.behaviorStateMachine.ChangeState(new BigDylan_Chase(dylan));
+            }
+        }
     }
 
     internal class BigDylan_Wander : BigDylan_StateBase
@@ -106,15 +157,10 @@ namespace Baldibasicpoop.NPCS
             base.ChangeNavigationState(new NavigationState_WanderRandom(this.npc, 0));
         }
 
-        public override void OnStateTriggerStay(Collider other, bool validCollision)
+        public override void InPlayerSight(PlayerManager player)
         {
-            base.OnStateTriggerStay(other, validCollision);
-            Entity component = other.GetComponent<Entity>();
-            if (component != null && (component.gameObject.layer == LayerMask.NameToLayer("NPCs") || component.gameObject.layer == LayerMask.NameToLayer("Player")))
-            {
-                dylan.Explode(other);
-            }
+            base.InPlayerSight(player);
+            base.npc.behaviorStateMachine.ChangeState(new BigDylan_Stare(dylan));
         }
-        //removed method playersaw cuz its redundant
     }
 }
