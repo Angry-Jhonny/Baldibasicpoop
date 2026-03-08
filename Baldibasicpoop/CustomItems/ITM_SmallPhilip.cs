@@ -19,7 +19,6 @@ namespace Baldibasicpoop.CustomItems
                     BigDylan bd = UnityEngine.Object.FindObjectsOfType<BigDylan>()[i];
                     if (Vector3.Distance(plrMang.transform.position, bd.transform.position) < pm.pc.Reach)
                     {
-                        plrMang.ec.MakeNoise(plrMang.transform.position, 120);
                         bd.behaviorStateMachine.ChangeState(new BigDylan_Dead(bd));
                         flag = true;
                     }

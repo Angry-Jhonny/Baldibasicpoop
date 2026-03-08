@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using MTM101BaldAPI;
 using MTM101BaldAPI.Reflection;
 using UnityEngine;
 
@@ -88,6 +89,26 @@ namespace Baldibasicpoop.NPCS
         public PropagatedAudioManager pam;
     }
 
+    internal class MisterBenz_WanderTeddy : MisterBenz_StateBase
+    {
+        public MisterBenz_WanderTeddy(MisterBenz benz) : base(benz)
+        {
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+            base.ChangeNavigationState(new NavigationState_WanderRandom(this.npc, 0));
+            benz.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Tedi");
+        }
+
+        public override void DestinationEmpty()
+        {
+            base.DestinationEmpty();
+            base.ChangeNavigationState(new NavigationState_WanderRandom(this.npc, 0));
+        }
+    }
+
     internal class MisterBenz_Wander : MisterBenz_StateBase
     {
         public MisterBenz_Wander(MisterBenz benz) : base(benz)
@@ -112,7 +133,24 @@ namespace Baldibasicpoop.NPCS
             Entity component = other.GetComponent<Entity>();
             if (component != null && (component.gameObject.layer == LayerMask.NameToLayer("NPCs") || component.gameObject.layer == LayerMask.NameToLayer("Player")))
             {
-                benz.Explode(other);
+                if (component.gameObject.layer == LayerMask.NameToLayer("Player"))
+                {
+                    PlayerManager plr = other.GetComponent<PlayerManager>();
+                    ItemManager itm = plr.itm;
+                    if (itm.Has(EnumExtensions.GetFromExtendedName<Items>("Tedi")))
+                    {
+                        benz.behaviorStateMachine.ChangeState(new MisterBenz_WanderTeddy(benz));
+                        itm.Remove(EnumExtensions.GetFromExtendedName<Items>("Tedi"));
+                    }
+                    else
+                    {
+                        benz.Explode(other);
+                    }
+                }
+                else
+                {
+                    benz.Explode(other);
+                }
             }
         }
     }

@@ -94,17 +94,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePlugin.cs" />
+    <Compile Include="CustomItems\ITM_Tedi.cs" />
     <Compile Include="CustomItems\ITM_SmallPhilip.cs" />
     <Compile Include="EditorSupport.cs" />
     <Compile Include="CustomItems\ITM_Shit.cs" />
     <Compile Include="CustomItems\ITM_Pringuls.cs" />
-    <Compile Include="MaterialMaker.cs" />
+    <Compile Include="Helpers\ModExtensions.cs" />
+    <Compile Include="NPCS\BaltimoreGomez.cs" />
     <Compile Include="NPCS\BigDylan.cs" />
+    <Compile Include="NPCS\NPC_Base.cs" />
     <Compile Include="Patches\MainMenuPatch.cs" />
     <Compile Include="NPCS\Mystman13.cs" />
     <Compile Include="NPCS\MisterBenz.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structures\CageTrap.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="AssetManagerNames.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
