@@ -1,8 +1,4 @@
-﻿using MTM101BaldAPI.Reflection;
-using Rewired;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using MTM101BaldAPI;
 using UnityEngine;
 
 namespace Baldibasicpoop.NPCS
@@ -26,17 +22,18 @@ namespace Baldibasicpoop.NPCS
             base.Navigator.SetSpeed(wanderSpeed);
             base.Navigator.maxSpeed = wanderSpeed;
             spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Idle");
-            pam = base.GetComponent<PropagatedAudioManager>();
+            audMan = base.GetComponent<PropagatedAudioManager>();
+            isDead = false;
         }
 
         public float wanderSpeed = 10f;
         public float chaseSpeed = 18f;
 
         public Collider collidedGuy;
-        public float timeToDisappear;
+        public bool isDead;
 
         [SerializeField]
-        public PropagatedAudioManager pam;
+        public PropagatedAudioManager audMan;
     }
 
     internal class BigDylan_Dead : BigDylan_StateBase
@@ -50,10 +47,11 @@ namespace Baldibasicpoop.NPCS
             base.Enter();
             base.ChangeNavigationState(new NavigationState_DoNothing(this.npc, 999));
             dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Dead");
-            dylan.pam.audioDevice.Stop();
-            dylan.pam.FlushQueue(true);
-            dylan.pam.SetLoop(false);
-            dylan.pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("DYL_Death"));
+            dylan.audMan.audioDevice.Stop();
+            dylan.audMan.FlushQueue(true);
+            dylan.audMan.SetLoop(false);
+            dylan.audMan.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("DYL_Death"));
+            dylan.isDead = true;
         }
 
         public override void DestinationEmpty() => base.DestinationEmpty();
@@ -69,8 +67,9 @@ namespace Baldibasicpoop.NPCS
         {
             base.Enter();
             dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Chase");
-            dylan.pam.QueueAudio(BasePlugin.Instance.assetMan.Get<SoundObject>("DYL_Sing"));
-            dylan.pam.SetLoop(true);
+            dylan.audMan.QueueAudio(BasePlugin.Instance.assetMan.Get<SoundObject>("DYL_Sing"));
+            dylan.audMan.SetLoop(true);
+            dylan.audMan.maintainLoop = true;
         }
 
         public override void DestinationEmpty()
@@ -87,19 +86,29 @@ namespace Baldibasicpoop.NPCS
 
         private void Flee()
         {
-            dylan.pam.audioDevice.Stop();
-            dylan.pam.FlushQueue(true);
-            dylan.pam.SetLoop(false);
+            dylan.audMan.audioDevice.Stop();
+            dylan.audMan.FlushQueue(true);
+            dylan.audMan.SetLoop(false);
             base.npc.behaviorStateMachine.ChangeState(new BigDylan_Flee(dylan));
         }
 
-        public override void OnStateTriggerStay(Collider other, bool validCollision)
+        public override void OnStateTriggerStay(Entity otherEntity, Collider other, bool validCollision)
         {
-            base.OnStateTriggerStay(other, validCollision);
+            base.OnStateTriggerStay(otherEntity, other, validCollision);
             Entity component = other.GetComponent<Entity>();
             if (component != null && (component.gameObject.layer == LayerMask.NameToLayer("Player")))
             {
-                Flee();
+                PlayerManager plr = other.GetComponent<PlayerManager>();
+                ItemManager itm = plr.itm;
+                if (itm.Has(EnumExtensions.GetFromExtendedName<Items>("SmallPhilip")))
+                {
+                    dylan.behaviorStateMachine.ChangeState(new BigDylan_Dead(dylan));
+                    itm.Remove(EnumExtensions.GetFromExtendedName<Items>("SmallPhilip"));
+                }
+                else
+                {
+                    Flee();
+                }
             }
         }
     }
@@ -153,7 +162,7 @@ namespace Baldibasicpoop.NPCS
             base.Enter();
             base.ChangeNavigationState(new NavigationState_DoNothing(this.npc, 999));
             dylan.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("DYL_Stare");
-            dylan.pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("SFX_Wiplash"));
+            dylan.audMan.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("SFX_Wiplash"));
         }
 
         public override void DestinationEmpty() => base.DestinationEmpty();

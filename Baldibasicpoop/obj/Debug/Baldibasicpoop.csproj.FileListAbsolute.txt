@@ -162,7 +162,6 @@ C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\UnityE
 C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\UnityEngine.XRModule.dll
 C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\UnityEngine.ARModule.dll
 C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\UnityEngine.InputModule.dll
-C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\Unity.RenderPipelines.Core.Runtime.dll
 C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\Unity.Mathematics.dll
 C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\Unity.RenderPipeline.Universal.ShaderLibrary.dll
 C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibasicpoop.csproj.AssemblyReference.cache
@@ -170,3 +169,4 @@ C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldib
 C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibas.6A83B86B.Up2Date
 C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibasicpoop.dll
 C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\obj\Debug\Baldibasicpoop.pdb
+C:\Users\Thumbly\Desktop\Projects\Baldibasicpoop\Baldibasicpoop\bin\Debug\Unity.RenderPipelines.Core.Runtime.dll

@@ -26,14 +26,14 @@ namespace Baldibasicpoop.NPCS
             base.Navigator.SetSpeed(wanderSpeed);
             base.Navigator.maxSpeed = wanderSpeed;
             spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("basenpc_Idle");
-            pam = base.GetComponent<PropagatedAudioManager>();
+            audMan = base.GetComponent<PropagatedAudioManager>();
 
         }
 
         public float wanderSpeed = 10f;
 
         [SerializeField]
-        public PropagatedAudioManager pam;
+        public PropagatedAudioManager audMan;
     }
     internal class BaseNPC_Wander : BaseNPC_StateBase
     {

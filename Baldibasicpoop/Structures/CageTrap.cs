@@ -1,14 +1,6 @@
 ﻿using Baldibasicpoop.Helpers;
-using HarmonyLib;
-using MTM101BaldAPI;
-using Rewired;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -76,7 +68,7 @@ namespace Baldibasicpoop.Structures
         public GameObject CageGraphic;
 
         private HudGauge gauge;
-        private Image UIImage;
+        //private Image UIImage;
         public Sprite GaugeIcon;
         public Sprite TrapCover;
 
@@ -89,7 +81,7 @@ namespace Baldibasicpoop.Structures
         private bool triggered = false;
         private bool powered = true;
 
-        public ModExtensions extentions = new ModExtensions();
+        public UsefulHelpers usefulHelpers = BasePlugin.Instance.usefulHelpers;
 
         private void Update()
         {
@@ -140,13 +132,20 @@ namespace Baldibasicpoop.Structures
             {
                 gauge = Singleton<CoreGameManager>.Instance.GetHud(0).gaugeManager.ActivateNewGauge(GaugeIcon, trapTime);
 
-                UIImage = extentions.AddUIOverlay(TrapCover);
+                //UIImage = usefulHelpers.UI_AddUIOverlay(TrapCover);
             }
 
             while (time > 0f)
             {
-                ent.transform.position = new Vector3(transform.position.x, ent.transform.position.y, transform.position.z);
-                time -= Time.deltaTime * ec.EnvironmentTimeScale;
+                if (Vector3.Distance(ent.transform.position, transform.position) > 10f)
+                {
+                    time = 0f;
+                }
+                else
+                {
+                    ent.transform.position = new Vector3(transform.position.x, ent.transform.position.y, transform.position.z);
+                }
+                    time -= Time.deltaTime * ec.EnvironmentTimeScale;
                 if (gauge != null)
                 {
                     gauge.SetValue(trapTime, time);
@@ -157,14 +156,14 @@ namespace Baldibasicpoop.Structures
             currentModifier.moveMods.Remove(moveMod);
             if (gauge != null)
             {
-                GameObject.Destroy(UIImage);
+                //GameObject.Destroy(UIImage);
                 gauge.Deactivate();
             }
         }
 
         public void SetPower(bool power)
         {
-            if (power == powered) return; // dont do logic if the attempted state is our current one
+            if (power == powered) return;
             if (power)
             {
                 audMan.PlaySingle(audActivate);

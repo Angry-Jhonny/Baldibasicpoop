@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using MTM101BaldAPI;
-using MTM101BaldAPI.Reflection;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Baldibasicpoop.NPCS
 {
@@ -26,14 +21,14 @@ namespace Baldibasicpoop.NPCS
             base.Navigator.SetSpeed(wanderSpeed);
             base.Navigator.maxSpeed = wanderSpeed;
             spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("BAGZ_Idle");
-            pam = base.GetComponent<PropagatedAudioManager>();
+            audMan = base.GetComponent<PropagatedAudioManager>();
 
         }
 
         public float wanderSpeed = 10f;
 
         [SerializeField]
-        public PropagatedAudioManager pam;
+        public PropagatedAudioManager audMan;
     }
 
     internal class BaltimoreGomez_Chase : BaltimoreGomez_StateBase

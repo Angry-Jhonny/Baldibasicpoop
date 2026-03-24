@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using MTM101BaldAPI.Reflection;
-using MTM101BaldAPI.Components;
-using MTM101BaldAPI.Components.Animation;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Baldibasicpoop.NPCS
 {
@@ -29,7 +23,7 @@ namespace Baldibasicpoop.NPCS
             base.Navigator.maxSpeed = wanderSpeed;
             spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Mii13_Idle");
 
-            AudioMan = base.GetComponent<AudioManager>();
+            audMan = base.GetComponent<AudioManager>();
         }
 
         public void CatchPlayer()
@@ -95,7 +89,7 @@ namespace Baldibasicpoop.NPCS
         public float time = 0;
 
         [SerializeField]
-        public AudioManager AudioMan;
+        public AudioManager audMan;
     }
 
     public class Mystman13_Chase : Mystman13_StateBase
@@ -111,8 +105,9 @@ namespace Baldibasicpoop.NPCS
             Mii13.UpdateMoveSpeed();
         }
 
-        public override void OnStateTriggerEnter(Collider other, bool validCollision)
+        public override void OnStateTriggerEnter(Entity otherEntity, Collider other, bool validCollision)
         {
+            base.OnStateTriggerEnter(otherEntity, other, validCollision);
             if (!validCollision)
             {
                 return;
@@ -176,7 +171,7 @@ namespace Baldibasicpoop.NPCS
             base.PlayerInSight(player);
             if (Mii13.time > 0f) { }
             else {
-                Mii13.AudioMan.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("Mii13_Hey"));
+                Mii13.audMan.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("Mii13_Hey"));
                 Mii13.chaseSpeed = Mii13.wanderSpeed;
                 Mii13.StartChasingPlayer();
             }

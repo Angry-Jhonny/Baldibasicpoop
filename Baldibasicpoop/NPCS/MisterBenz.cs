@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using MTM101BaldAPI;
-using MTM101BaldAPI.Reflection;
+﻿using MTM101BaldAPI;
 using UnityEngine;
 
 namespace Baldibasicpoop.NPCS
@@ -26,7 +22,7 @@ namespace Baldibasicpoop.NPCS
             base.Navigator.SetSpeed(wanderSpeed);
             base.Navigator.maxSpeed = wanderSpeed;
             spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Idle");
-            pam = base.GetComponent<PropagatedAudioManager>();
+            audMan = base.GetComponent<PropagatedAudioManager>();
 		
         }
 
@@ -35,7 +31,7 @@ namespace Baldibasicpoop.NPCS
             if (!collided)
             {
                 timeToDisappear = 5f;
-				pam.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("BEN_Explod"));
+				audMan.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("BEN_Explod"));
                 collidedGuy = other;
                 delay = 0.5f;
                 collided = true;
@@ -63,14 +59,42 @@ namespace Baldibasicpoop.NPCS
                     if (exploded == false)
                     {
                         exploded = true;
-                        spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Explod");
+                        ExplosionObj = Instantiate<GameObject>(explosionPrefab.gameObject);
+                        ExplosionObj.transform.SetParent(base.transform);
+                        ExplosionObj.transform.position = base.transform.position;
+                        //spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Explod");
+                        spriteRenderer[0].gameObject.SetActive(false);
                         var offset = (collidedGuy.transform.position - transform.position).normalized;
                         collidedGuy.GetComponent<Entity>().AddForce(new Force(offset, explosionSpeed * 1.9f, -explosionSpeed));
+                    }
+                    else if (!audMan.AnyAudioIsPlaying)
+                    {
+                        Object.Destroy(base.gameObject);
                     }
                 }
                 Navigator.Entity.SetInteractionState(false);
             }
             
+        }
+
+        public void TeddehChance()
+        {
+            int randomChance = Mathf.RoundToInt(UnityEngine.Random.Range(0, teddehChance));
+            if (randomChance == 0 && !audMan.QueuedAudioIsPlaying)
+            {
+                int random = Mathf.RoundToInt(UnityEngine.Random.Range(1, 3));
+                audMan.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("BEN_Teddy" + random));
+            }
+        }
+
+        public void GibberishChance()
+        {
+            int randomChance = Mathf.RoundToInt(UnityEngine.Random.Range(0, gibberishChance));
+            if (randomChance == 0 && !audMan.QueuedAudioIsPlaying)
+            {
+                int random = Mathf.RoundToInt(UnityEngine.Random.Range(1, 4));
+                audMan.PlaySingle(BasePlugin.Instance.assetMan.Get<SoundObject>("BEN_Gibberish" + random));
+            }
         }
 
         public float wanderSpeed = 10f;
@@ -85,12 +109,20 @@ namespace Baldibasicpoop.NPCS
         public Collider collidedGuy;
         public float timeToDisappear;
 
+        public QuickExplosion explosionPrefab;
+        private GameObject ExplosionObj;
+
+        private float teddehChance = 15f;
+        private float gibberishChance = 5f;
+
         [SerializeField]
-        public PropagatedAudioManager pam;
+        public PropagatedAudioManager audMan;
     }
 
     internal class MisterBenz_WanderTeddy : MisterBenz_StateBase
     {
+        private float teddehTime = 1f;
+
         public MisterBenz_WanderTeddy(MisterBenz benz) : base(benz)
         {
         }
@@ -102,6 +134,18 @@ namespace Baldibasicpoop.NPCS
             benz.spriteRenderer[0].sprite = BasePlugin.Instance.assetMan.Get<Sprite>("Benz_Tedi");
         }
 
+        public override void Update()
+        {
+            base.Update();
+
+            teddehTime -= Time.deltaTime * base.npc.TimeScale;
+            if (teddehTime <= 0f)
+            {
+                benz.TeddehChance();
+                teddehTime = 1f;
+            }
+        }
+
         public override void DestinationEmpty()
         {
             base.DestinationEmpty();
@@ -111,6 +155,8 @@ namespace Baldibasicpoop.NPCS
 
     internal class MisterBenz_Wander : MisterBenz_StateBase
     {
+        private float gibberishTime = 1f;
+
         public MisterBenz_Wander(MisterBenz benz) : base(benz)
         {
         }
@@ -121,15 +167,27 @@ namespace Baldibasicpoop.NPCS
             base.ChangeNavigationState(new NavigationState_WanderRandom(this.npc, 0));
         }
 
+        public override void Update()
+        {
+            base.Update();
+
+            gibberishTime -= Time.deltaTime * base.npc.TimeScale;
+            if (gibberishTime <= 0f)
+            {
+                benz.GibberishChance();
+                gibberishTime = 1f;
+            }
+        }
+
         public override void DestinationEmpty()
         {
             base.DestinationEmpty();
             base.ChangeNavigationState(new NavigationState_WanderRandom(this.npc, 0));
         }
 
-        public override void OnStateTriggerStay(Collider other, bool validCollision)
+        public override void OnStateTriggerStay(Entity otherEntity, Collider other, bool validCollision)
         {
-            base.OnStateTriggerStay(other, validCollision);
+            base.OnStateTriggerStay(otherEntity, other, validCollision);
             Entity component = other.GetComponent<Entity>();
             if (component != null && (component.gameObject.layer == LayerMask.NameToLayer("NPCs") || component.gameObject.layer == LayerMask.NameToLayer("Player")))
             {

@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using MTM101BaldAPI;
+﻿using Baldibasicpoop.NPCS;
 
 namespace Baldibasicpoop.CustomItems
 {
@@ -8,16 +7,17 @@ namespace Baldibasicpoop.CustomItems
 		public override bool Use(PlayerManager pm)
 		{
 			PlayerManager plrMang = pm;
-			plrMang.ec.MakeNoise(plrMang.transform.position, 120);
-			for (int i = 0; i < UnityEngine.Object.FindObjectsOfType<GottaSweep>().Length; i++)
-			{
-				if (i < UnityEngine.Object.FindObjectsOfType<GottaSweep>().Length)
-				{
-					GottaSweep gs = UnityEngine.Object.FindObjectsOfType<GottaSweep>()[i];
-					gs.behaviorStateMachine.ChangeState(new GottaSweep_SweepingTime(gs, gs));
-				}
-			}
-			UnityEngine.Object.Destroy(base.gameObject);
+			plrMang.ec.MakeNoise(plrMang.transform.position, 64, true);
+
+            foreach (NPC npc in pm.ec.Npcs)
+            {
+                if (npc.Character == Character.Sweep)
+                {
+                    npc.GetComponent<GottaSweep>().behaviorStateMachine.ChangeState(new GottaSweep_Pringuls(npc, npc.GetComponent<GottaSweep>(), plrMang.transform.localPosition));
+                }
+            }
+
+            UnityEngine.Object.Destroy(base.gameObject);
 			return true;
 		}
 	}
